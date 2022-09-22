@@ -4,6 +4,7 @@
 #include "Cannon.h"
 #include <Components/StaticMeshComponent.h>
 #include <Components/ArrowComponent.h>
+#include "TankPawn.h"
 
 // Sets default values
 ACannon::ACannon()
@@ -27,41 +28,79 @@ ACannon::ACannon()
 void ACannon::BeginPlay()
 {
 	Super::BeginPlay();
+	TankPawn = Cast<ATankPawn>(GetOwner());
 	Reload();
 	
 }
 
-//// Called every frame
-//void ACannon::Tick(float DeltaTime)
-//{
-//	Super::Tick(DeltaTime);
-//
-//}
-
 void ACannon::Fire()
 {
-	if (!IsReadyToFire())
+	if (TankPawn->Patrons > 0)
 	{
-		return;
-	}
-	bReadyToFire = false;
+		if (!IsReadyToFire())
+		{
+			return;
+		}
+		bReadyToFire = false;
 
-	if (CannonType == ECannonType::FireProjectile)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile")));
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire trace")));
-	}
+		if (CannonType == ECannonType::FireProjectile)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile")));
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire trace")));
+		}
 
-	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, 1 / FireRate, false);
+		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, 1 / FireRate, false);
+
+		TankPawn->Patrons--;
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), TankPawn->Patrons));
+	}
+}
+
+void ACannon::FireSpecial()
+{
+	if (TankPawn->Patrons > 0)
+	{
+		if (!IsReadyToFire())
+		{
+			return;
+		}
+		bReadyToFire = false;
+
+		if (CannonType == ECannonType::FireProjectile)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile")));
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire trace")));
+		}
+
+		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::ReloadSpecial, 1 / FireRate, false);
+
+		TankPawn->Patrons--;
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), TankPawn->Patrons));
+	}
 }
 
 void ACannon::Reload()
 {
 	bReadyToFire = true;
-	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Fire, 1 / FireRate, true, 1 / FireRate);
+	//GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Fire, 1 / FireRate, true, 1 / FireRate);
+}
+
+void ACannon::ReloadSpecial()
+{
+	bReadyToFire = true;
+	if (FireKolvoSpecial > 1) {
+		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::FireSpecial, 1 / FireRateSpecial, true, 1 / FireRateSpecial);
+		FireKolvoSpecial--;
+	}
+	else {
+		FireKolvoSpecial = FireKolvoSpecialSave;
+	}
 }
 
 bool ACannon::IsReadyToFire()

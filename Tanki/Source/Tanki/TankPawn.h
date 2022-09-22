@@ -27,6 +27,7 @@ public:
 
 	void SetupCannon();
 	void Fire();
+	void FireSpecial();
 
 protected:
 	// Called when the game starts or when spawned
@@ -61,9 +62,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 		float MovementSpeed = 100.0f;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 		float RotationSpeed = 100.0f;
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		int Patrons = 20;
 
 private:
 	class ATankController* TankController;

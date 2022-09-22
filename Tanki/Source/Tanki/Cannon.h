@@ -17,7 +17,9 @@ public:
 	ACannon();
 
 	void Fire();
+	void FireSpecial();
 	void Reload();
+	void ReloadSpecial();
 	bool IsReadyToFire();
 
 	FTimerHandle ReloadTimer;
@@ -40,16 +42,24 @@ protected:
 		float FireRate = 1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
+		float FireRateSpecial = 2.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
+		int FireKolvoSpecial = 3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
 		float FireRange = 1000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
 		float FireDamage = 1.0f;
 
-//public:	
-//	// Called every frame
-//	virtual void Tick(float DeltaTime) override;
+
 
 private:
+	class ATankPawn* TankPawn;
+
 	bool bReadyToFire = false;
+
+	int FireKolvoSpecialSave = FireKolvoSpecial;
 
 };
