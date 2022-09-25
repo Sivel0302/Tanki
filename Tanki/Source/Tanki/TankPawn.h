@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Cannon.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
@@ -48,9 +49,18 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 		class UCameraComponent* Camera;
-
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		TSubclassOf<ACannon> CannonClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		TSubclassOf<ACannon> CannonClass1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		TSubclassOf<ACannon> CannonClass2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		TSubclassOf<ACannon> CannonClass3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		class UArrowComponent* CannonSetupPoint;
