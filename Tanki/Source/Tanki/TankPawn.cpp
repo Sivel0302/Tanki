@@ -9,6 +9,7 @@
 #include <Kismet/KismetMathLibrary.h>
 #include "Cannon.h"
 #include <Components/ArrowComponent.h>
+#include <Containers/UnrealString.h>
 
 // Sets default values
 ATankPawn::ATankPawn()
@@ -126,7 +127,12 @@ void ATankPawn::Fire()
 {
 	if (Cannon)
 	{
-		Cannon->Fire();
+		if (Patrons > 0)
+		{
+			Cannon->Fire();
+			Patrons--;
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
+		}
 	}
 }
 

@@ -22,6 +22,8 @@ public:
 	void ReloadSpecial();
 	bool IsReadyToFire();
 
+	void FireFire();
+
 	FTimerHandle ReloadTimer;
 	FTimerHandle BurstTimer;
 
