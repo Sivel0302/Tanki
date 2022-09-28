@@ -9,6 +9,7 @@
 #include <GameFramework/Actor.h>
 #include "Cannon.h"
 #include <Kismet/KismetMathLibrary.h>
+#include "HealthComponent.h"
 
 // Sets default values
 ATurret::ATurret()
@@ -39,6 +40,14 @@ ATurret::ATurret()
 		TurretMesh->SetStaticMesh(turretMeshTemp);
 	}
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Healthcomponent"));
+	HealthComponent->OnDie.AddUObject(this, &ATurret::Destroyed);
+	HealthComponent->OnHealthChanged.AddUObject(this, &ATurret::DamageTaked);
+}
+
+void ATurret::TakeDamage(FDamageData DamageData)
+{	
+	HealthComponent->TakeDamage(DamageData);
 }
 
 // Called when the game starts or when spawned
@@ -76,7 +85,7 @@ void ATurret::Destroyed()
 	if (Cannon) {
 		Cannon->Destroy();
 	}
-
+	Destroy();
 }
 
 void ATurret::RotateToPlayer()
@@ -129,4 +138,9 @@ void ATurret::SetupCannon()
 	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
 
+
+void ATurret::DamageTaked(float Value)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
+}
 

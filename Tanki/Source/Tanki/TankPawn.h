@@ -5,12 +5,14 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Cannon.h"
+#include "DamageTaker.h"
+#include "GameStructs.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
 class ACannon;
 UCLASS()
-class TANKI_API ATankPawn : public APawn
+class TANKI_API ATankPawn : public APawn, public IDamageTaker
 {
 	GENERATED_BODY()
 
@@ -30,9 +32,25 @@ public:
 	void Fire();
 	void FireSpecial();
 
+	/*UFUNCTION(BlueprintCallable)
+		class UHealthComponent* GetHealthComponent() const { return HealthComponent; }*/
+
+	UFUNCTION()
+		virtual void TakeDamage(FDamageData DamageData) override;
+	UFUNCTION()
+		void Die();
+	UFUNCTION()
+		void DamageTaked(float Value);
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+		class UHealthComponent* HealthComponent;
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+		UBoxComponent* HitCollider;*/
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* BodyMesh;

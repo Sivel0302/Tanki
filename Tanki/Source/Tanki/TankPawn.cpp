@@ -10,6 +10,7 @@
 #include "Cannon.h"
 #include <Components/ArrowComponent.h>
 #include <Containers/UnrealString.h>
+#include "HealthComponent.h"
 
 // Sets default values
 ATankPawn::ATankPawn()
@@ -40,6 +41,12 @@ ATankPawn::ATankPawn()
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
 	CannonSetupPoint->SetupAttachment(TurretMesh);
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	HealthComponent->OnDie.AddUObject(this, &ATankPawn::Die);
+	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);
+	/*HitCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit collider"));
+	HitCollider->SetupAttachment(BodyMesh);*/
+
 }
 
 // Called when the game starts or when spawned
@@ -59,16 +66,16 @@ void ATankPawn::Tick(float DeltaTime)
 	//MoveForward
 	FVector currentLocation = GetActorLocation();
 	FVector ForwardVector = GetActorForwardVector();
-	UE_LOG(LogTemp, Warning, TEXT("ForwardVector: %s"), *ForwardVector.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("ForwardVector: %s"), *ForwardVector.ToString());
 	FVector RightVector = GetActorRightVector();
-	UE_LOG(LogTemp, Warning, TEXT("RightVector: %s"), *RightVector.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("RightVector: %s"), *RightVector.ToString());
 	FVector movePosition = currentLocation + ForwardVector * MovementSpeed * ForwardMoveAxisValue * DeltaTime
 		+ RightVector * MovementSpeed * RightMoveAxisValue * DeltaTime;
 	SetActorLocation(movePosition);
 
 	//BodyRotation
 	CurrentRightAxisValue = FMath::Lerp(CurrentRightAxisValue, RotateRightAxisValue, RotateInterpolationKey);
-	UE_LOG(LogTemp, Warning, TEXT("CurrentRightAxisValue %f, RotateRightAxisValue %f"), CurrentRightAxisValue, RotateRightAxisValue);
+	//UE_LOG(LogTemp, Warning, TEXT("CurrentRightAxisValue %f, RotateRightAxisValue %f"), CurrentRightAxisValue, RotateRightAxisValue);
 
 	float yawRotation = CurrentRightAxisValue * RotationSpeed * DeltaTime;
 	FRotator currentRotation = GetActorRotation();
@@ -142,5 +149,24 @@ void ATankPawn::FireSpecial()
 	{
 		Cannon->FireSpecial();
 	}
+}
+
+void ATankPawn::TakeDamage(FDamageData DamageData)
+{
+	HealthComponent->TakeDamage(DamageData);
+}
+
+void ATankPawn::Die()
+{
+	if (Cannon)
+	{
+		Cannon->Destroy();
+	}
+	Destroy();
+}
+
+void ATankPawn::DamageTaked(float Value)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
 }
 

@@ -4,12 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DamageTaker.h"
+#include "GameStructs.h"
 #include "Turret.generated.h"
 
 class UStaticMeshComponent;
 class ACannon;
 UCLASS()
-class TANKI_API ATurret : public AActor
+class TANKI_API ATurret : public AActor, public IDamageTaker
 {
 	GENERATED_BODY()
 	
@@ -17,18 +19,23 @@ public:
 	// Sets default values for this actor's properties
 	ATurret();
 
+	UFUNCTION()
+		void TakeDamage(FDamageData DamageData) override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void Targeting();
-	void Destroyed();
 	void RotateToPlayer();
 	bool IsPlayerInRange();
 	bool CanFire();
 	void Fire();
 
 	void SetupCannon();
+
+	void Destroyed();
+	void DamageTaked(float Value);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -41,6 +48,9 @@ protected:
 		TSubclassOf<ACannon> CannonClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		class UArrowComponent* CannonSetupPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		class UHealthComponent* HealthComponent;
 
 	UPROPERTY()
 		ACannon* Cannon;
