@@ -39,82 +39,20 @@ void ACannon::BeginPlay()
 void ACannon::Fire()
 {	
 	FireFire();
+
+	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, 1 / FireRate, false);
 }
 
 void ACannon::FireSpecial()
 {
-	if (TankPawn->Patrons > 0)
-	{
-		if (!IsReadyToFire())
-		{
-			return;
-		}
-		bReadyToFire = false;
+	FireFire();
 
-		if (CannonType == ECannonType::FireProjectile)
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile")));
-			FActorSpawnParameters spawnParams;
-			spawnParams.Owner = this;
-			AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,
-				ProjectileSpawnPoint->GetComponentLocation(),
-				ProjectileSpawnPoint->GetComponentRotation(), spawnParams);
-			if (projectile)
-			{
-				projectile->Start();
-			}
-		}
-		else if (CannonType == ECannonType::FireProjectile2)
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile2")));
-			FActorSpawnParameters spawnParams;
-			spawnParams.Owner = this;
-			AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,
-				ProjectileSpawnPoint->GetComponentLocation(),
-				ProjectileSpawnPoint->GetComponentRotation(), spawnParams);
-			if (projectile)
-			{
-				projectile->Start();
-			}
-		}
-		else
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire trace")));
-			FHitResult hitResult;
-			FCollisionQueryParams traceParams;
-			traceParams.bTraceComplex = true;
-			traceParams.bReturnPhysicalMaterial = false;
-
-			FVector Start = ProjectileSpawnPoint->GetComponentLocation();
-			FVector End = Start + ProjectileSpawnPoint->GetForwardVector() * FireRange;
-
-			if (GetWorld()->LineTraceSingleByChannel(hitResult, Start, End, ECollisionChannel::ECC_Visibility, traceParams))
-			{
-				DrawDebugLine(GetWorld(), Start, hitResult.Location, FColor::Purple, false, 1.0f, 0, 5.0f);
-				if (hitResult.Actor.Get())
-				{
-					hitResult.Actor.Get()->Destroy();
-				}
-			}
-			else
-			{
-				DrawDebugLine(GetWorld(), Start, End, FColor::Purple, false, 1.0f, 0, 5.0f);
-			}
-
-
-		}
-
-		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::ReloadSpecial, 1 / FireRate, false);
-
-		TankPawn->Patrons--;
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), TankPawn->Patrons));
-	}
+	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::ReloadSpecial, 1 / FireRate, false);
 }
 
 void ACannon::Reload()
 {
 	bReadyToFire = true;
-	//GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Fire, 1 / FireRate, true, 1 / FireRate);
 }
 
 void ACannon::ReloadSpecial()
@@ -123,9 +61,11 @@ void ACannon::ReloadSpecial()
 	if (FireKolvoSpecial > 1) {
 		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::FireSpecial, 1 / FireRateSpecial, true, 1 / FireRateSpecial);
 		FireKolvoSpecial--;
+		bReadyToFireSpecial = false;
 	}
 	else {
 		FireKolvoSpecial = FireKolvoSpecialSave;
+		bReadyToFireSpecial = true;
 	}
 }
 
@@ -144,7 +84,7 @@ void ACannon::FireFire()
 
 	if (CannonType == ECannonType::FireProjectile)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile")));
+		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile")));
 		FActorSpawnParameters spawnParams;
 		spawnParams.Owner = this;
 		AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,
@@ -157,7 +97,7 @@ void ACannon::FireFire()
 	}
 	else if (CannonType == ECannonType::FireProjectile2)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile2")));
+		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire projectile2")));
 		FActorSpawnParameters spawnParams;
 		spawnParams.Owner = this;
 		AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass,
@@ -168,9 +108,9 @@ void ACannon::FireFire()
 			projectile->Start();
 		}
 	}
-	else
+	else /*FireTrace*/
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire trace")));
+		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Fire trace")));
 		FHitResult hitResult;
 		FCollisionQueryParams traceParams;
 		traceParams.bTraceComplex = true;
@@ -182,9 +122,25 @@ void ACannon::FireFire()
 		if (GetWorld()->LineTraceSingleByChannel(hitResult, Start, End, ECollisionChannel::ECC_Visibility, traceParams))
 		{
 			DrawDebugLine(GetWorld(), Start, hitResult.Location, FColor::Purple, false, 1.0f, 0, 5.0f);
-			if (hitResult.Actor.Get())
+			/*if (hitResult.Actor.Get())
 			{
 				hitResult.Actor.Get()->Destroy();
+			}*/
+			if (hitResult.Actor.Get())
+			{
+				IDamageTaker* DamageTakerActor = Cast<IDamageTaker>(hitResult.Actor.Get());
+				if (DamageTakerActor)
+				{
+					FDamageData damageData;
+					damageData.DamageValue = FireDamage;
+					damageData.Instigator = GetOwner();
+					damageData.DamageMaker = this;
+					DamageTakerActor->TakeDamage(damageData);
+				}
+				else
+				{
+					hitResult.Actor.Get()->Destroy();
+				}
 			}
 		}
 		else
@@ -193,6 +149,5 @@ void ACannon::FireFire()
 		}
 	}
 
-	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, 1 / FireRate, false);
 }
 

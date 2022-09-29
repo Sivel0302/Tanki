@@ -10,6 +10,7 @@
 #include "Cannon.h"
 #include <Kismet/KismetMathLibrary.h>
 #include "HealthComponent.h"
+#include "IScorable.h"
 
 // Sets default values
 ATurret::ATurret()
@@ -40,14 +41,20 @@ ATurret::ATurret()
 		TurretMesh->SetStaticMesh(turretMeshTemp);
 	}
 
-	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Healthcomponent"));
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnDie.AddUObject(this, &ATurret::Destroyed);
 	HealthComponent->OnHealthChanged.AddUObject(this, &ATurret::DamageTaked);
+
 }
 
 void ATurret::TakeDamage(FDamageData DamageData)
 {	
 	HealthComponent->TakeDamage(DamageData);
+}
+
+int ATurret::GetScore()
+{
+	return 0;
 }
 
 // Called when the game starts or when spawned
@@ -121,7 +128,7 @@ void ATurret::Fire()
 		{
 			Cannon->Fire();
 			Patrons--;
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons turret: %d"), Patrons));
+			//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons turret: %d"), Patrons));
 		}
 	}
 }

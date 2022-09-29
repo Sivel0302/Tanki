@@ -11,6 +11,7 @@
 #include <Components/ArrowComponent.h>
 #include <Containers/UnrealString.h>
 #include "HealthComponent.h"
+#include "IScorable.h"
 
 // Sets default values
 ATankPawn::ATankPawn()
@@ -34,7 +35,6 @@ ATankPawn::ATankPawn()
 	SpringArm->bInheritYaw = false;
 	SpringArm->bInheritRoll = false;
 
-
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
@@ -43,7 +43,8 @@ ATankPawn::ATankPawn()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnDie.AddUObject(this, &ATankPawn::Die);
-	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);
+	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);	
+
 	/*HitCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit collider"));
 	HitCollider->SetupAttachment(BodyMesh);*/
 
@@ -134,7 +135,7 @@ void ATankPawn::Fire()
 {
 	if (Cannon)
 	{
-		if (Patrons > 0)
+		if (Patrons > 0 && Cannon->bReadyToFireSpecial)
 		{
 			Cannon->Fire();
 			Patrons--;
@@ -147,7 +148,12 @@ void ATankPawn::FireSpecial()
 {
 	if (Cannon)
 	{
-		Cannon->FireSpecial();
+		if (Patrons >= Cannon->FireKolvoSpecial && Cannon->bReadyToFireSpecial)
+		{
+			Cannon->FireSpecial();
+			Patrons -= Cannon->FireKolvoSpecial;
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
+		}
 	}
 }
 
@@ -169,4 +175,5 @@ void ATankPawn::DamageTaked(float Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
 }
+
 

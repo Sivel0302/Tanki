@@ -38,9 +38,14 @@ public:
 	// Sets default values for this actor's properties
 	AProjectile();
 
+	class ACannon* Cannon;
+	class ATankPawn* TankPawn;
+
 	void Start();
 
 protected:
+	virtual void BeginPlay() override;
+
 	void Move();
 
 };

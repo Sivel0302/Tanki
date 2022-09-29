@@ -6,6 +6,11 @@
 #include <Components/SphereComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include "DamageTaker.h"
+#include "IScorable.h"
+#include <GameFramework/Actor.h>
+#include "Cannon.h"
+#include "TankPawn.h"
+#include "Turret.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -33,6 +38,13 @@ void AProjectile::Start()
 	GetWorld()->GetTimerManager().SetTimer(MoveTimer, this, &AProjectile::Move, MoveRate, true, MoveRate);
 }
 
+void AProjectile::BeginPlay()
+{
+	Super::BeginPlay();
+	Cannon = Cast<ACannon>(GetOwner());
+	TankPawn = Cast<ATankPawn>(Cannon->GetOwner());
+}
+
 void AProjectile::Move()
 {
 	FVector movePosition = GetActorLocation() + GetActorForwardVector() * MoveSpeed * MoveRate;
@@ -46,6 +58,7 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 	if (OtherActor)
 	{
 		IDamageTaker* DamageTakerActor = Cast<IDamageTaker>(OtherActor);
+		IIScorable* ScoreActor = Cast<IIScorable>(OtherActor);
 		if (DamageTakerActor)
 		{
 			FDamageData damageData;
@@ -53,6 +66,14 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 			damageData.Instigator = GetOwner();
 			damageData.DamageMaker = this;
 			DamageTakerActor->TakeDamage(damageData);
+			if (ScoreActor)
+			{
+				if (OtherActor->IsActorBeingDestroyed())
+				{
+					TankPawn->Score += 5;
+					GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
+				}
+			}
 		}
 		else
 		{
@@ -62,7 +83,7 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 	}
 
 	//OtherActor->Destroy();
-	Destroy();
+	//Destroy();
 }
 
 

@@ -7,6 +7,7 @@
 #include "Cannon.h"
 #include "DamageTaker.h"
 #include "GameStructs.h"
+#include "IScorable.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
@@ -41,6 +42,7 @@ public:
 		void Die();
 	UFUNCTION()
 		void DamageTaked(float Value);
+
 
 
 protected:
@@ -96,6 +98,8 @@ public:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		int Patrons = 20;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Cannon")
+		int Score = 0;
 
 private:
 	class ATankController* TankController;

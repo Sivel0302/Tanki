@@ -6,12 +6,13 @@
 #include "GameFramework/Actor.h"
 #include "DamageTaker.h"
 #include "GameStructs.h"
+#include "IScorable.h"
 #include "Turret.generated.h"
 
 class UStaticMeshComponent;
 class ACannon;
 UCLASS()
-class TANKI_API ATurret : public AActor, public IDamageTaker
+class TANKI_API ATurret : public AActor, public IDamageTaker, public IIScorable
 {
 	GENERATED_BODY()
 	
@@ -21,6 +22,9 @@ public:
 
 	UFUNCTION()
 		void TakeDamage(FDamageData DamageData) override;
+
+	UFUNCTION()
+		virtual int GetScore() override;
 
 protected:
 	// Called when the game starts or when spawned

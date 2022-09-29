@@ -30,7 +30,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health value")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthValue")
 		float MaxHealth = 10;
 		float CurrentHealth;
 
