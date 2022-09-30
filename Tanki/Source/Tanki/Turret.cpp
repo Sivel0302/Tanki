@@ -54,7 +54,7 @@ void ATurret::TakeDamage(FDamageData DamageData)
 
 int ATurret::GetScore()
 {
-	return 0;
+	return AddScore;
 }
 
 // Called when the game starts or when spawned

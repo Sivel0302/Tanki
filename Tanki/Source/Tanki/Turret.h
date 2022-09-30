@@ -76,4 +76,6 @@ protected:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		int Patrons = 50;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
+		int AddScore = 5;
 };

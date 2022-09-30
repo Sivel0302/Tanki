@@ -8,6 +8,7 @@
 #include "Turret.h"
 #include "Projectile.h"
 #include <DrawDebugHelpers.h>
+#include "IScorable.h"
 
 // Sets default values
 ACannon::ACannon()
@@ -129,6 +130,7 @@ void ACannon::FireFire()
 			if (hitResult.Actor.Get())
 			{
 				IDamageTaker* DamageTakerActor = Cast<IDamageTaker>(hitResult.Actor.Get());
+				IIScorable* ScoreActor = Cast<IIScorable>(hitResult.Actor.Get());
 				if (DamageTakerActor)
 				{
 					FDamageData damageData;
@@ -136,11 +138,20 @@ void ACannon::FireFire()
 					damageData.Instigator = GetOwner();
 					damageData.DamageMaker = this;
 					DamageTakerActor->TakeDamage(damageData);
+					if (ScoreActor)
+					{
+						if (hitResult.Actor.Get()->IsActorBeingDestroyed())
+						{
+							TankPawn->Score += 5;
+							GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
+						}
+					}
 				}
 				else
 				{
 					hitResult.Actor.Get()->Destroy();
 				}
+
 			}
 		}
 		else

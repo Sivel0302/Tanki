@@ -70,7 +70,7 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 			{
 				if (OtherActor->IsActorBeingDestroyed())
 				{
-					TankPawn->Score += 5;
+					TankPawn->Score += ScoreActor->GetScore();
 					GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
 				}
 			}
