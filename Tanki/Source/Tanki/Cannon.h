@@ -62,6 +62,7 @@ public:
 
 private:
 	class ATankPawn* TankPawn;
+	class AActor* Owner;
 
 	bool bReadyToFire = false;
 

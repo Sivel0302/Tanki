@@ -40,6 +40,7 @@ public:
 
 	class ACannon* Cannon;
 	class ATankPawn* TankPawn;
+	class AActor* Owner;
 
 	void Start();
 

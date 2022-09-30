@@ -9,6 +9,7 @@
 #include "Projectile.h"
 #include <DrawDebugHelpers.h>
 #include "IScorable.h"
+#include <GameFramework/Actor.h>
 
 // Sets default values
 ACannon::ACannon()
@@ -33,6 +34,7 @@ void ACannon::BeginPlay()
 {
 	Super::BeginPlay();
 	TankPawn = Cast<ATankPawn>(GetOwner());
+	Owner = GetOwner();
 	Reload();
 	
 }
@@ -123,35 +125,37 @@ void ACannon::FireFire()
 		if (GetWorld()->LineTraceSingleByChannel(hitResult, Start, End, ECollisionChannel::ECC_Visibility, traceParams))
 		{
 			DrawDebugLine(GetWorld(), Start, hitResult.Location, FColor::Purple, false, 1.0f, 0, 5.0f);
-			/*if (hitResult.Actor.Get())
-			{
-				hitResult.Actor.Get()->Destroy();
-			}*/
+
 			if (hitResult.Actor.Get())
 			{
-				IDamageTaker* DamageTakerActor = Cast<IDamageTaker>(hitResult.Actor.Get());
-				IIScorable* ScoreActor = Cast<IIScorable>(hitResult.Actor.Get());
-				if (DamageTakerActor)
-				{
-					FDamageData damageData;
-					damageData.DamageValue = FireDamage;
-					damageData.Instigator = GetOwner();
-					damageData.DamageMaker = this;
-					DamageTakerActor->TakeDamage(damageData);
-					if (ScoreActor)
-					{
-						if (hitResult.Actor.Get()->IsActorBeingDestroyed())
+				AActor* OtherActor = hitResult.Actor.Get();
+
+				if (Owner) {
+					if (OtherActor != Owner) {
+						IDamageTaker* DamageTakerActor = Cast<IDamageTaker>(OtherActor);
+						IIScorable* ScoreActor = Cast<IIScorable>(OtherActor);
+						if (DamageTakerActor)
 						{
-							TankPawn->Score += 5;
-							GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
+							FDamageData damageData;
+							damageData.DamageValue = FireDamage;
+							damageData.Instigator = GetOwner();
+							damageData.DamageMaker = this;
+							DamageTakerActor->TakeDamage(damageData);
+							if (ScoreActor && TankPawn)
+							{
+								if (OtherActor->IsActorBeingDestroyed())
+								{
+									TankPawn->Score += ScoreActor->GetScore();
+									GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
+								}
+							}
+						}
+						else
+						{
+							OtherActor->Destroy();
 						}
 					}
 				}
-				else
-				{
-					hitResult.Actor.Get()->Destroy();
-				}
-
 			}
 		}
 		else

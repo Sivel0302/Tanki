@@ -43,6 +43,7 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 	Cannon = Cast<ACannon>(GetOwner());
 	TankPawn = Cast<ATankPawn>(Cannon->GetOwner());
+	Owner = Cannon->GetOwner();
 }
 
 void AProjectile::Move()
@@ -57,29 +58,33 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 {
 	if (OtherActor)
 	{
-		IDamageTaker* DamageTakerActor = Cast<IDamageTaker>(OtherActor);
-		IIScorable* ScoreActor = Cast<IIScorable>(OtherActor);
-		if (DamageTakerActor)
-		{
-			FDamageData damageData;
-			damageData.DamageValue = Damage;
-			damageData.Instigator = GetOwner();
-			damageData.DamageMaker = this;
-			DamageTakerActor->TakeDamage(damageData);
-			if (ScoreActor)
-			{
-				if (OtherActor->IsActorBeingDestroyed())
+		if (Owner) {
+			if (OtherActor != Owner) {
+				IDamageTaker* DamageTakerActor = Cast<IDamageTaker>(OtherActor);
+				IIScorable* ScoreActor = Cast<IIScorable>(OtherActor);
+				if (DamageTakerActor)
 				{
-					TankPawn->Score += ScoreActor->GetScore();
-					GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
+					FDamageData damageData;
+					damageData.DamageValue = Damage;
+					damageData.Instigator = GetOwner();
+					damageData.DamageMaker = this;
+					DamageTakerActor->TakeDamage(damageData);
+					if (ScoreActor && TankPawn)
+					{
+						if (OtherActor->IsActorBeingDestroyed())
+						{
+							TankPawn->Score += ScoreActor->GetScore();
+							GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
+						}
+					}
 				}
+				else
+				{
+					OtherActor->Destroy();
+				}
+				Destroy();
 			}
 		}
-		else
-		{
-			OtherActor->Destroy();
-		}
-		Destroy();
 	}
 
 	//OtherActor->Destroy();
