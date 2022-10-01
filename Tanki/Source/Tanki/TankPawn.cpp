@@ -14,10 +14,10 @@
 #include "IScorable.h"
 
 // Sets default values
-ATankPawn::ATankPawn()
+ATankPawn::ATankPawn() : AParentPawn()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	/*PrimaryActorTick.bCanEverTick = true;
 
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
 	RootComponent = BoxCollision;
@@ -27,6 +27,13 @@ ATankPawn::ATankPawn()
 
 	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
 	TurretMesh->SetupAttachment(BodyMesh);
+
+	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
+	CannonSetupPoint->SetupAttachment(TurretMesh);*/
+
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	HealthComponent->OnDie.AddUObject(this, &ATankPawn::Die);
+	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(BoxCollision);
@@ -38,13 +45,6 @@ ATankPawn::ATankPawn()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
-	CannonSetupPoint->SetupAttachment(TurretMesh);
-
-	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
-	HealthComponent->OnDie.AddUObject(this, &ATankPawn::Die);
-	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);	
-
 	/*HitCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit collider"));
 	HitCollider->SetupAttachment(BodyMesh);*/
 
@@ -55,8 +55,8 @@ void ATankPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//SetupCannon(CannonClass);
 	TankController = Cast<ATankController>(GetController());
-	SetupCannon(CannonClass);
 }
 
 // Called every frame
@@ -112,36 +112,37 @@ void ATankPawn::RotateRight(float Value)
 	RotateRightAxisValue = Value;
 }
 
-void ATankPawn::SetupCannon(TSubclassOf<ACannon> newCannon)
-{
-	if (!newCannon)
-	{
-		return;
-	}
-
-	if (Cannon)
-	{
-		Cannon->Destroy();
-	}
-
-	FActorSpawnParameters params;
-	params.Instigator = this;
-	params.Owner = this;
-	Cannon = GetWorld()->SpawnActor<ACannon>(newCannon, params);
-	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetIncludingScale);
-}
+//void ATankPawn::SetupCannon(TSubclassOf<ACannon> newCannon)
+//{
+//	if (!newCannon)
+//	{
+//		return;
+//	}
+//
+//	if (Cannon)
+//	{
+//		Cannon->Destroy();
+//	}
+//
+//	FActorSpawnParameters params;
+//	params.Instigator = this;
+//	params.Owner = this;
+//	Cannon = GetWorld()->SpawnActor<ACannon>(newCannon, params);
+//	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetIncludingScale);
+//}
 
 void ATankPawn::Fire()
 {
-	if (Cannon)
+	/*if (Cannon)
 	{
 		if (Patrons > 0 && Cannon->bReadyToFireSpecial)
 		{
 			Cannon->Fire();
 			Patrons--;
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
 		}
-	}
+	}*/
+	Super::Fire();
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
 }
 
 void ATankPawn::FireSpecial()

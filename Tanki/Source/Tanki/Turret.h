@@ -7,12 +7,13 @@
 #include "DamageTaker.h"
 #include "GameStructs.h"
 #include "IScorable.h"
+#include "ParentPawn.h"
 #include "Turret.generated.h"
 
 class UStaticMeshComponent;
 class ACannon;
 UCLASS()
-class TANKI_API ATurret : public AActor, public IDamageTaker, public IIScorable
+class TANKI_API ATurret : public AParentPawn, public IDamageTaker, public IIScorable
 {
 	GENERATED_BODY()
 	
@@ -34,30 +35,30 @@ protected:
 	void RotateToPlayer();
 	bool IsPlayerInRange();
 	bool CanFire();
-	void Fire();
+	//void Fire();
 
-	void SetupCannon();
+	//void SetupCannon();
 
 	void Destroyed();
 	void DamageTaked(float Value);
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* BodyMesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-		UStaticMeshComponent* TurretMesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-		class UBoxComponent* HitCollision;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-		TSubclassOf<ACannon> CannonClass;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-		class UArrowComponent* CannonSetupPoint;
+		UStaticMeshComponent* TurretMesh;*/
+		/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+			class UBoxComponent* HitCollision;*/
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		TSubclassOf<ACannon> CannonClass;*/
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		class UArrowComponent* CannonSetupPoint;*/
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-		class UHealthComponent* HealthComponent;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		class UHealthComponent* HealthComponent;*/
 
-	UPROPERTY()
-		ACannon* Cannon;
+	/*UPROPERTY()
+		ACannon* Cannon;*/
 	UPROPERTY()
 		APawn* PlayerPawn;
 
@@ -74,8 +75,8 @@ protected:
 	const FString TurretMeshPath = "StaticMesh'/Game/CSC/Meshes/SM_CSC_Gun1.SM_CSC_Gun1'";
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
-		int Patrons = 50;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		int Patrons = 50;*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
 		int AddScore = 5;
 };

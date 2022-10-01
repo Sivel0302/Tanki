@@ -13,22 +13,26 @@
 #include "IScorable.h"
 
 // Sets default values
-ATurret::ATurret()
+ATurret::ATurret() : AParentPawn()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	/*PrimaryActorTick.bCanEverTick = true;
 
-	HitCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
-	RootComponent = HitCollision;
+	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
+	RootComponent = BoxCollision;
 
 	BodyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyMesh"));
-	BodyMesh->SetupAttachment(HitCollision);
+	BodyMesh->SetupAttachment(BoxCollision);
 
 	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
 	TurretMesh->SetupAttachment(BodyMesh);
 
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
-	CannonSetupPoint->SetupAttachment(TurretMesh);
+	CannonSetupPoint->SetupAttachment(TurretMesh);*/
+
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	HealthComponent->OnDie.AddUObject(this, &ATurret::Destroyed);
+	HealthComponent->OnHealthChanged.AddUObject(this, &ATurret::DamageTaked);
 
 	UStaticMesh* bodyMeshTemp = LoadObject<UStaticMesh>(this, *BodyMeshPath);
 	if (bodyMeshTemp)
@@ -41,9 +45,6 @@ ATurret::ATurret()
 		TurretMesh->SetStaticMesh(turretMeshTemp);
 	}
 
-	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
-	HealthComponent->OnDie.AddUObject(this, &ATurret::Destroyed);
-	HealthComponent->OnHealthChanged.AddUObject(this, &ATurret::DamageTaked);
 
 }
 
@@ -62,7 +63,7 @@ void ATurret::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetupCannon();
+	//SetupCannon(CannonClass);
 	
 	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 
@@ -120,30 +121,29 @@ bool ATurret::CanFire()
 
 }
 
-void ATurret::Fire()
-{
-	if (Cannon)
-	{
-		if (Patrons > 0 && Cannon->IsReadyToFire())
-		{
-			Cannon->Fire();
-			Patrons--;
-			//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons turret: %d"), Patrons));
-		}
-	}
-}
+//void ATurret::Fire()
+//{
+//	if (Cannon)
+//	{
+//		if (Patrons > 0 && Cannon->IsReadyToFire())
+//		{
+//			Cannon->Fire();
+//			Patrons--;
+//		}
+//	}
+//}
 
-void ATurret::SetupCannon()
-{
-	if (!CannonClass)
-	{
-		return;
-	}
-	FActorSpawnParameters params;
-	params.Owner = this;
-	Cannon = GetWorld()->SpawnActor<ACannon>(CannonClass, params);
-	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-}
+//void ATurret::SetupCannon()
+//{
+//	if (!CannonClass)
+//	{
+//		return;
+//	}
+//	FActorSpawnParameters params;
+//	params.Owner = this;
+//	Cannon = GetWorld()->SpawnActor<ACannon>(CannonClass, params);
+//	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+//}
 
 
 void ATurret::DamageTaked(float Value)

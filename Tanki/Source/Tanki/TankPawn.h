@@ -8,12 +8,13 @@
 #include "DamageTaker.h"
 #include "GameStructs.h"
 #include "IScorable.h"
+#include "ParentPawn.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
 class ACannon;
 UCLASS()
-class TANKI_API ATankPawn : public APawn, public IDamageTaker
+class TANKI_API ATankPawn : public AParentPawn, public IDamageTaker
 {
 	GENERATED_BODY()
 
@@ -29,8 +30,8 @@ public:
 
 	void RotateRight(float Value);
 
-	void SetupCannon(TSubclassOf<ACannon> newCannon);
-	void Fire();
+	//void SetupCannon(TSubclassOf<ACannon> newCannon);
+	virtual void Fire() override;
 	void FireSpecial();
 
 	/*UFUNCTION(BlueprintCallable)
@@ -49,10 +50,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-		class UHealthComponent* HealthComponent;
 	/*UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-		UBoxComponent* HitCollider;*/
+		class UHealthComponent* HealthComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* BodyMesh;
@@ -61,7 +60,7 @@ protected:
 		UStaticMeshComponent* TurretMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-		class UBoxComponent* BoxCollision;
+		class UBoxComponent* BoxCollision;*/
 
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
@@ -70,8 +69,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 		class UCameraComponent* Camera;
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
-		TSubclassOf<ACannon> CannonClass;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		TSubclassOf<ACannon> CannonClass;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		TSubclassOf<ACannon> CannonClass1;
@@ -82,11 +81,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		TSubclassOf<ACannon> CannonClass3;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
-		class UArrowComponent* CannonSetupPoint;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		class UArrowComponent* CannonSetupPoint;*/
 
-	UPROPERTY()
-		ACannon* Cannon;
+	/*UPROPERTY()
+		ACannon* Cannon;*/
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
@@ -96,8 +95,8 @@ public:
 		float RotationSpeed = 100.0f;
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
-		int Patrons = 20;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+		int Patrons = 20;*/
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Cannon")
 		int Score = 0;
 
