@@ -12,6 +12,7 @@
 #include <Containers/UnrealString.h>
 #include "HealthComponent.h"
 #include "IScorable.h"
+#include <Components/SceneComponent.h>
 
 // Sets default values
 ATankPawn::ATankPawn() : AParentPawn()
@@ -59,6 +60,16 @@ void ATankPawn::BeginPlay()
 	TankController = Cast<ATankController>(GetController());
 }
 
+
+void ATankPawn::RotateTurretTo(FVector TargetPosition)
+{
+	FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetPosition);
+	FRotator turretRotation = TurretMesh->GetComponentRotation();
+	targetRotation.Pitch = turretRotation.Pitch;
+	targetRotation.Roll = turretRotation.Roll;
+	TurretMesh->SetWorldRotation(FMath::Lerp(targetRotation, turretRotation, TurretInterpolationKey));
+}
+
 // Called every frame
 void ATankPawn::Tick(float DeltaTime)
 {
@@ -89,11 +100,12 @@ void ATankPawn::Tick(float DeltaTime)
 	if (TankController)
 	{
 		FVector MousePos = TankController->GetMousePos();
-		FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), MousePos);
+		RotateTurretTo(MousePos);
+		/*FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), MousePos);
 		FRotator turretRotation = TurretMesh->GetComponentRotation();
 		targetRotation.Pitch = turretRotation.Pitch;
 		targetRotation.Roll = turretRotation.Roll;
-		TurretMesh->SetWorldRotation(FMath::Lerp(targetRotation, turretRotation, TurretInterpolationKey));
+		TurretMesh->SetWorldRotation(FMath::Lerp(targetRotation, turretRotation, TurretInterpolationKey));*/
 	}
 
 }

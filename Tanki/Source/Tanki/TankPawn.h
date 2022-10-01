@@ -50,6 +50,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AIComponents")
+		float MovementAccurency = 50;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AIComponents", Meta = (MakeEditWidget = true))
+		TArray<FVector> PatrollingPoints;
+
+
 	/*UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 		class UHealthComponent* HealthComponent;
 
@@ -69,6 +75,17 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 		class UCameraComponent* Camera;
 public:
+	FVector GetTurretForwardVector() const { return TurretMesh->GetForwardVector(); }
+	UFUNCTION()
+		float GetMovementAccurency() const { return MovementAccurency; };
+	UFUNCTION()
+		TArray<FVector> GetPatrollingPoints() const { return PatrollingPoints; };
+
+	UFUNCTION()
+		void RotateTurretTo(FVector TargetPosition);
+	UFUNCTION()
+		FVector GetTurretForwardVector();
+
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		TSubclassOf<ACannon> CannonClass;*/
 
