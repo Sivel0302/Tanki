@@ -9,6 +9,9 @@
 #include "GameStructs.h"
 #include "IScorable.h"
 #include "ParentPawn.h"
+#include <Camera/CameraComponent.h>
+#include <UObject/NoExportTypes.h>
+#include <Templates/SubclassOf.h>
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
@@ -83,8 +86,6 @@ public:
 
 	UFUNCTION()
 		void RotateTurretTo(FVector TargetPosition);
-	UFUNCTION()
-		FVector GetTurretForwardVector();
 
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		TSubclassOf<ACannon> CannonClass;*/

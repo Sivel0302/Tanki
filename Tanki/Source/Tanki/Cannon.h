@@ -47,7 +47,7 @@ protected:
 		float FireRate = 1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
-		float FireRateSpecial = 2.0f;
+		float FireRateSpecial = 3.0f;
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
 		int FireKolvoSpecial = 3;
