@@ -119,6 +119,8 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Cannon")
 		int Score = 0;
 
+	int CannonNumber = 1;
+
 private:
 	class ATankController* TankController;
 

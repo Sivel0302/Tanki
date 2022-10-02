@@ -170,7 +170,7 @@ void ACannon::FireFire()
 						}
 						else
 						{
-							OtherActor->Destroy();
+							//OtherActor->Destroy();
 						}
 					}
 				}

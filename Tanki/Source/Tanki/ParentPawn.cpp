@@ -59,6 +59,8 @@ void AParentPawn::SetupCannon(TSubclassOf<ACannon> newCannon)
 	params.Owner = this;
 	Cannon = GetWorld()->SpawnActor<ACannon>(newCannon, params);
 	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetIncludingScale);
+
+	CannonClass = newCannon;
 }
 
 //// Called to bind functionality to input

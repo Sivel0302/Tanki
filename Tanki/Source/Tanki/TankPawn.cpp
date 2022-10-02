@@ -178,6 +178,7 @@ void ATankPawn::FireSpecial()
 	}
 }
 
+
 void ATankPawn::TakeDamage(FDamageData DamageData)
 {
 	HealthComponent->TakeDamage(DamageData);

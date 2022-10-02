@@ -80,7 +80,7 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 				}
 				else
 				{
-					OtherActor->Destroy();
+					//OtherActor->Destroy();
 				}
 				Destroy();
 			}

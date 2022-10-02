@@ -93,20 +93,44 @@ void ATankController::ChangeCannon()
 
 	if (TankPawn)
 	{
-		if (TankPawn->CannonClass == TankPawn->CannonClass1) {
-			TankPawn->CannonClass = TankPawn->CannonClass2;
-			TankPawn->SetupCannon(TankPawn->CannonClass2);
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 2")));
+		//if (TankPawn->CannonClass == TankPawn->CannonClass1) {
+		//	//TankPawn->CannonClass = TankPawn->CannonClass2;
+		//	TankPawn->SetupCannon(TankPawn->CannonClass2);
+		//	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 2")));
+		//}
+		//else if (TankPawn->CannonClass == TankPawn->CannonClass2) {
+		//	//TankPawn->CannonClass = TankPawn->CannonClass3;
+		//	TankPawn->SetupCannon(TankPawn->CannonClass3);
+		//	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 3")));
+		//}
+		//else if (TankPawn->CannonClass == TankPawn->CannonClass3) {
+		//	//TankPawn->CannonClass = TankPawn->CannonClass1;
+		//	TankPawn->SetupCannon(TankPawn->CannonClass1);
+		//	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 1")));
+		//}
+
+		if (TankPawn->CannonNumber < 3)
+		{
+			TankPawn->CannonNumber++;
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Cannon number: %d"), TankPawn->CannonNumber));
 		}
-		else if (TankPawn->CannonClass == TankPawn->CannonClass2) {
-			TankPawn->CannonClass = TankPawn->CannonClass3;
-			TankPawn->SetupCannon(TankPawn->CannonClass3);
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 3")));
+		else
+		{
+			TankPawn->CannonNumber = 1;
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Cannon number: %d"), TankPawn->CannonNumber));
 		}
-		else if (TankPawn->CannonClass == TankPawn->CannonClass3) {
-			TankPawn->CannonClass = TankPawn->CannonClass1;
+
+		if (TankPawn->CannonNumber == 1)
+		{
 			TankPawn->SetupCannon(TankPawn->CannonClass1);
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 1")));
+		}
+		else if (TankPawn->CannonNumber == 2)
+		{
+			TankPawn->SetupCannon(TankPawn->CannonClass2);
+		}
+		else if (TankPawn->CannonNumber == 3)
+		{
+			TankPawn->SetupCannon(TankPawn->CannonClass3);
 		}
 	}
 }

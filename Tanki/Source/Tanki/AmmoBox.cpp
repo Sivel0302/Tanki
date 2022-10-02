@@ -30,8 +30,27 @@ void AAmmoBox::OnMeshOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	ATankPawn* TankPawn = Cast<ATankPawn>(OtherActor);
 	if (TankPawn)
 	{
-		TankPawn->SetupCannon(CannonClass);
-		if (CannonClass == TankPawn->CannonClass1) {
+		if (TankPawn->CannonNumber == 1)
+		{
+			TankPawn->CannonClass1 = CannonClass;
+			TankPawn->SetupCannon(CannonClass);
+			Destroy();
+		}
+		else if (TankPawn->CannonNumber == 2)
+		{
+			TankPawn->CannonClass2 = CannonClass;
+			TankPawn->SetupCannon(CannonClass);
+			Destroy();
+		}
+		else if (TankPawn->CannonNumber == 3)
+		{
+			TankPawn->CannonClass3 = CannonClass;
+			TankPawn->SetupCannon(CannonClass);
+			Destroy();
+		}
+
+
+		/*if (CannonClass == TankPawn->CannonClass1) {
 			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 1")));
 		}
 		else if (CannonClass == TankPawn->CannonClass2) {
@@ -39,8 +58,8 @@ void AAmmoBox::OnMeshOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 		}
 		else if (CannonClass == TankPawn->CannonClass3) {
 			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 3")));
-		}
-		Destroy();
+		}*/
+		//Destroy();
 	}
 
 }
