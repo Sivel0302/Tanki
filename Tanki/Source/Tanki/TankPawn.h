@@ -86,6 +86,7 @@ public:
 
 	UFUNCTION()
 		void RotateTurretTo(FVector TargetPosition);
+	FVector GetEyesPosition();
 
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 		TSubclassOf<ACannon> CannonClass;*/

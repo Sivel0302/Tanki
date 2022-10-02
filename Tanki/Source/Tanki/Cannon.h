@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameStructs.h"
+#include <Camera/CameraShakeBase.h>
 #include "Cannon.generated.h"
 
 UCLASS()
@@ -31,6 +32,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
+		TSubclassOf<class UCameraShakeBase> CameraShake;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Effects")
+		UParticleSystemComponent* ShotEffect;
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Effects")
+		UAudioComponent* ShotSound;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 		class UStaticMeshComponent* CannonMesh;
 
@@ -44,10 +53,10 @@ protected:
 		ECannonType CannonType = ECannonType::FireProjectile;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
-		float FireRate = 1.0f;
+		float FireRate = 5.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
-		float FireRateSpecial = 3.0f;
+		float FireRateSpecial = 6.0f;
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire params")
 		int FireKolvoSpecial = 3;

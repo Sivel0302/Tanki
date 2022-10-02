@@ -9,7 +9,9 @@
 #include "Projectile.h"
 #include <DrawDebugHelpers.h>
 #include "IScorable.h"
+#include "Particles/ParticleSystemComponent.h"
 #include <GameFramework/Actor.h>
+#include <Components/AudioComponent.h>
 
 // Sets default values
 ACannon::ACannon()
@@ -26,6 +28,13 @@ ACannon::ACannon()
 	ProjectileSpawnPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("ProjectileSpawnPoint"));
 	ProjectileSpawnPoint->SetupAttachment(CannonMesh);
 
+	ShotSound = CreateDefaultSubobject<UAudioComponent>(TEXT("ShotSound"));
+	ShotSound->SetAutoActivate(false);
+
+	ShotEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ShotEffect"));
+	ShotEffect->SetAutoActivate(false);
+	ShotEffect->SetupAttachment(ProjectileSpawnPoint);
+
 }
 
 
@@ -41,6 +50,7 @@ void ACannon::BeginPlay()
 
 void ACannon::Fire()
 {	
+
 	FireFire();
 
 	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, 1 / FireRate, false);
@@ -84,6 +94,14 @@ void ACannon::FireFire()
 		return;
 	}
 	bReadyToFire = false;
+
+	ShotEffect->ActivateSystem();
+	ShotSound->Play();
+
+	if (CameraShake)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(CameraShake);
+	}
 
 	if (CannonType == ECannonType::FireProjectile)
 	{

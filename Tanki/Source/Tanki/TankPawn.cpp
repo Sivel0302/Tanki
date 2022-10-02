@@ -110,6 +110,12 @@ void ATankPawn::RotateTurretTo(FVector TargetPosition)
 	TurretMesh->SetWorldRotation(FMath::Lerp(targetRotation, turretRotation, TurretInterpolationKey));
 }
 
+
+FVector ATankPawn::GetEyesPosition()
+{
+	return CannonSetupPoint->GetComponentLocation();
+}
+
 void ATankPawn::MoveForward(float Value)
 {
 	ForwardMoveAxisValue = Value;
@@ -154,7 +160,9 @@ void ATankPawn::Fire()
 		}
 	}*/
 	Super::Fire();
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
+	if (TankController) {
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
+	}
 }
 
 void ATankPawn::FireSpecial()

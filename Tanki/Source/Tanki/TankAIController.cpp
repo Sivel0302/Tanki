@@ -4,6 +4,7 @@
 #include "TankAIController.h"
 #include "TankPawn.h"
 #include <UObject/NoExportTypes.h>
+#include <DrawDebugHelpers.h>
 
 
 void ATankAIController::BeginPlay()
@@ -76,7 +77,7 @@ void ATankAIController::Targeting()
 		return;
 	}
 
-	if (IsPlayerInRange()) {
+	if (IsPlayerInRange() && IsPlayerSeen()) {
 		if (CanFire())
 		{
 			Fire();
@@ -116,5 +117,31 @@ bool ATankAIController::CanFire()
 
 bool ATankAIController::IsPlayerSeen()
 {
+	FVector playerPos = PlayerPawn->GetActorLocation();
+	FVector eyesPos = TankPawn->GetEyesPosition();
+	FHitResult hitResult;
+	FCollisionQueryParams params/* = FCollisionQueryParams(FName(TEXT("FireTrace")), true, this)*/;
+	params.bTraceComplex = true;
+	params.AddIgnoredActor(TankPawn);
+	params.bReturnPhysicalMaterial = false;
+
+	if (GetWorld()->LineTraceSingleByChannel(hitResult, eyesPos, playerPos, ECollisionChannel::ECC_Visibility, params))
+	{
+		AActor* hitActor = hitResult.GetActor();
+		if (hitActor) {
+			if (hitActor == PlayerPawn)
+			{
+				DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Red, false, 0.5f, 0, 10);
+				return true;
+			}
+			else
+			{
+				DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Green, false, 0.5f, 0, 10);
+				return false;
+			}
+		}
+	}
+	DrawDebugLine(GetWorld(), eyesPos, playerPos, FColor::Black, false, 0.5f, 0, 10);
 	return false;
+
 }
