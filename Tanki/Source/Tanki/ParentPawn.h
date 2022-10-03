@@ -9,6 +9,7 @@
 #include "HealthComponent.h"
 #include <Templates/SubclassOf.h>
 #include <Components/ArrowComponent.h>
+#include <Particles/ParticleSystemComponent.h>
 #include "ParentPawn.generated.h"
 
 UCLASS()
@@ -41,6 +42,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		class UArrowComponent* CannonSetupPoint;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Effects")
+		UParticleSystemComponent* DieEffect;
 
 
 

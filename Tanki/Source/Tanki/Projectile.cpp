@@ -11,6 +11,8 @@
 #include "Cannon.h"
 #include "TankPawn.h"
 #include "Turret.h"
+#include <Particles/ParticleSystemComponent.h>
+#include <../Plugins/FX/Niagara/Source/Niagara/Public/NiagaraFunctionLibrary.h>
 
 // Sets default values
 AProjectile::AProjectile()
@@ -28,7 +30,10 @@ AProjectile::AProjectile()
 
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
 	ProjectileMesh->SetupAttachment(SphereCollision);
-	//Mesh->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::OnMeshOverlapBegin);
+
+	/*TakeDamageEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("TakeDamageEffect"));
+	TakeDamageEffect->SetAutoActivate(false);
+	TakeDamageEffect->SetupAttachment(ProjectileMesh);*/
 
 
 }
@@ -82,13 +87,16 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 				{
 					//OtherActor->Destroy();
 				}
+				//TakeDamageEffect->ActivateSystem(true);
+				if (TakeDamageEffect)
+				{
+					FVector ExplosionLocation = ProjectileMesh->GetComponentLocation();
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), TakeDamageEffect, ExplosionLocation);
+				}
 				Destroy();
 			}
 		}
 	}
-
-	//OtherActor->Destroy();
-	//Destroy();
 }
 
 

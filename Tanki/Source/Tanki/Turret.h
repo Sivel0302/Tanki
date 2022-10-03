@@ -42,6 +42,9 @@ protected:
 	void Destroyed();
 	void DamageTaked(float Value);
 
+	bool IsPlayerSeen();
+	FVector GetEyesPosition();
+
 
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* BodyMesh;

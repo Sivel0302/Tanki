@@ -11,6 +11,7 @@
 #include <Kismet/KismetMathLibrary.h>
 #include "HealthComponent.h"
 #include "IScorable.h"
+#include <DrawDebugHelpers.h>
 
 // Sets default values
 ATurret::ATurret() : AParentPawn()
@@ -78,7 +79,7 @@ void ATurret::Targeting()
 	{
 		return;
 	}
-	if (IsPlayerInRange())
+	if (IsPlayerInRange() && IsPlayerSeen())
 	{
 		RotateToPlayer();
 		if (CanFire())
@@ -149,5 +150,40 @@ bool ATurret::CanFire()
 void ATurret::DamageTaked(float Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
+}
+
+bool ATurret::IsPlayerSeen()
+{
+	FVector playerPos = PlayerPawn->GetActorLocation();
+	FVector eyesPos = GetEyesPosition();
+	FHitResult hitResult;
+	FCollisionQueryParams params;
+	params.bTraceComplex = true;
+	params.AddIgnoredActor(this);
+	params.bReturnPhysicalMaterial = false;
+
+	if (GetWorld()->LineTraceSingleByChannel(hitResult, eyesPos, playerPos, ECollisionChannel::ECC_Visibility, params))
+	{
+		AActor* hitActor = hitResult.GetActor();
+		if (hitActor) {
+			if (hitActor == PlayerPawn)
+			{
+				DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Red, false, 0.5f, 0, 10);
+				return true;
+			}
+			else
+			{
+				DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Green, false, 0.5f, 0, 10);
+				return false;
+			}
+		}
+	}
+	DrawDebugLine(GetWorld(), eyesPos, playerPos, FColor::Black, false, 0.5f, 0, 10);
+	return false;
+}
+
+FVector ATurret::GetEyesPosition()
+{
+	return CannonSetupPoint->GetComponentLocation();
 }
 

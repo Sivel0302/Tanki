@@ -7,6 +7,7 @@
 #include <Components/BoxComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include <GameFramework/Actor.h>
+#include <Particles/ParticleSystemComponent.h>
 
 // Sets default values
 AParentPawn::AParentPawn()
@@ -24,6 +25,10 @@ AParentPawn::AParentPawn()
 
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
 	CannonSetupPoint->SetupAttachment(TurretMesh);
+
+	DieEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("DieEffect"));
+	DieEffect->SetAutoActivate(false);
+	DieEffect->SetupAttachment(BodyMesh);
 
 }
 

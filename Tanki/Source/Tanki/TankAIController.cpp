@@ -120,7 +120,7 @@ bool ATankAIController::IsPlayerSeen()
 	FVector playerPos = PlayerPawn->GetActorLocation();
 	FVector eyesPos = TankPawn->GetEyesPosition();
 	FHitResult hitResult;
-	FCollisionQueryParams params/* = FCollisionQueryParams(FName(TEXT("FireTrace")), true, this)*/;
+	FCollisionQueryParams params;
 	params.bTraceComplex = true;
 	params.AddIgnoredActor(TankPawn);
 	params.bReturnPhysicalMaterial = false;

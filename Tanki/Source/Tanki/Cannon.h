@@ -28,12 +28,12 @@ public:
 	FTimerHandle ReloadTimer;
 	FTimerHandle BurstTimer;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
+		TSubclassOf<class UCameraShakeBase> CameraShake;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
-		TSubclassOf<class UCameraShakeBase> CameraShake;
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Effects")
 		UParticleSystemComponent* ShotEffect;
