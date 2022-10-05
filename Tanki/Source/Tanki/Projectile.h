@@ -5,8 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include <Particles/ParticleSystemComponent.h>
-//#include <../Plugins/FX/Niagara/Source/Niagara/Public/NiagaraComponent.h>
-//#include <../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h>
+#include <../Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h>
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -35,8 +34,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 		float Damage = 1.0f;
 
-	/*UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Effects")
-		class UNiagaraSystem* TakeDamageEffect;*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
+		class UNiagaraSystem* TakeDamageEffect;
 
 	FTimerHandle MoveTimer;
 	

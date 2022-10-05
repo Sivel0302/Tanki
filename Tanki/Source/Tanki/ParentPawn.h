@@ -10,6 +10,7 @@
 #include <Templates/SubclassOf.h>
 #include <Components/ArrowComponent.h>
 #include <Particles/ParticleSystemComponent.h>
+#include "Particles/ParticleSystem.h"
 #include "ParentPawn.generated.h"
 
 UCLASS()
@@ -22,6 +23,7 @@ public:
 	AParentPawn();
 
 	void SetupCannon(TSubclassOf<ACannon> newCannon);
+	void DieEffects();
 	virtual void Fire();
 
 protected:
@@ -43,10 +45,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		class UArrowComponent* CannonSetupPoint;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Effects")
-		UParticleSystemComponent* DieEffect;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
+		UParticleSystem* DieEffect;
 
-
+	class UParticleSystemComponent* Template;
 
 
 public:	

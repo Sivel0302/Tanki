@@ -8,6 +8,7 @@
 #include <Components/StaticMeshComponent.h>
 #include <GameFramework/Actor.h>
 #include <Particles/ParticleSystemComponent.h>
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AParentPawn::AParentPawn()
@@ -26,10 +27,6 @@ AParentPawn::AParentPawn()
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
 	CannonSetupPoint->SetupAttachment(TurretMesh);
 
-	DieEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("DieEffect"));
-	DieEffect->SetAutoActivate(false);
-	DieEffect->SetupAttachment(BodyMesh);
-
 }
 
 // Called when the game starts or when spawned
@@ -39,13 +36,6 @@ void AParentPawn::BeginPlay()
 
 	SetupCannon(CannonClass);	
 }
-
-// Called every frame
-//void AParentPawn::Tick(float DeltaTime)
-//{
-//	Super::Tick(DeltaTime);
-//
-//}
 
 void AParentPawn::SetupCannon(TSubclassOf<ACannon> newCannon)
 {
@@ -68,12 +58,15 @@ void AParentPawn::SetupCannon(TSubclassOf<ACannon> newCannon)
 	CannonClass = newCannon;
 }
 
-//// Called to bind functionality to input
-//void AParentPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-//{
-//	Super::SetupPlayerInputComponent(PlayerInputComponent);
-//
-//}
+void AParentPawn::DieEffects()
+{
+	if (DieEffect)
+	{
+		Template = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DieEffect, BodyMesh->GetComponentLocation());
+		//DestructionParticle->SetWorldScale3D(FVector(1.0, 1.0, 1.0) * 3.0);
+		//GetStaticMeshComponent()->SetVisibility(false, true); // hide it
+	}
+}
 
 void AParentPawn::Fire()
 {

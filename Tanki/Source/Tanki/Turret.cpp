@@ -94,6 +94,7 @@ void ATurret::Destroyed()
 	if (Cannon) {
 		Cannon->Destroy();
 	}
+	DieEffects();
 	Destroy();
 }
 

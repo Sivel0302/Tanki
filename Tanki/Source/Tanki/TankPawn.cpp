@@ -13,6 +13,9 @@
 #include "HealthComponent.h"
 #include "IScorable.h"
 #include <Components/SceneComponent.h>
+#include <Kismet/GameplayStatics.h>
+#include <Particles/ParticleSystem.h>
+#include <Engine/TargetPoint.h>
 
 // Sets default values
 ATankPawn::ATankPawn() : AParentPawn()
@@ -99,6 +102,21 @@ void ATankPawn::Tick(float DeltaTime)
 }
 
 
+TArray<FVector> ATankPawn::GetPatrollingPoints()
+{
+	TArray<FVector> points;
+	for (ATargetPoint* point : PatrollingPoints)
+	{
+		points.Add(point->GetActorLocation());
+	}
+	return points;
+}
+
+void ATankPawn::SetPatrollingPoints(TArray<ATargetPoint*> NewPatrollingPoints)
+{
+	PatrollingPoints = NewPatrollingPoints;
+}
+
 void ATankPawn::RotateTurretTo(FVector TargetPosition)
 {
 	FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetPosition);
@@ -128,35 +146,8 @@ void ATankPawn::RotateRight(float Value)
 	RotateRightAxisValue = Value;
 }
 
-//void ATankPawn::SetupCannon(TSubclassOf<ACannon> newCannon)
-//{
-//	if (!newCannon)
-//	{
-//		return;
-//	}
-//
-//	if (Cannon)
-//	{
-//		Cannon->Destroy();
-//	}
-//
-//	FActorSpawnParameters params;
-//	params.Instigator = this;
-//	params.Owner = this;
-//	Cannon = GetWorld()->SpawnActor<ACannon>(newCannon, params);
-//	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetIncludingScale);
-//}
-
 void ATankPawn::Fire()
 {
-	/*if (Cannon)
-	{
-		if (Patrons > 0 && Cannon->bReadyToFireSpecial)
-		{
-			Cannon->Fire();
-			Patrons--;
-		}
-	}*/
 	Super::Fire();
 	if (TankController) {
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
@@ -188,6 +179,7 @@ void ATankPawn::Die()
 	{
 		Cannon->Destroy();
 	}
+	DieEffects();
 	Destroy();
 }
 

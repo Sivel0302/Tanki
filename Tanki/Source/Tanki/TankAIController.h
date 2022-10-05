@@ -50,4 +50,7 @@ protected:
 	bool CanFire();
 	bool IsPlayerSeen();
 
+	void Initialize();
+
+
 };

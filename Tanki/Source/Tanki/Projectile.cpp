@@ -12,7 +12,7 @@
 #include "TankPawn.h"
 #include "Turret.h"
 #include <Particles/ParticleSystemComponent.h>
-//#include <../Plugins/FX/Niagara/Source/Niagara/Public/NiagaraFunctionLibrary.h>
+#include <../Plugins/FX/Niagara/Source/Niagara/Public/NiagaraFunctionLibrary.h>
 
 // Sets default values
 AProjectile::AProjectile()
@@ -88,11 +88,11 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 					//OtherActor->Destroy();
 				}
 				//TakeDamageEffect->ActivateSystem(true);
-				//if (TakeDamageEffect)
-				//{
-				//	//FVector ExplosionLocation = ProjectileMesh->GetComponentLocation();
-				//	//UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), TakeDamageEffect, ExplosionLocation);
-				//}
+				if (TakeDamageEffect)
+				{
+					FVector ExplosionLocation = ProjectileMesh->GetComponentLocation();
+					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), TakeDamageEffect, ExplosionLocation);
+				}
 				Destroy();
 			}
 		}
