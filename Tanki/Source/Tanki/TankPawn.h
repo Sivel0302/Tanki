@@ -53,7 +53,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AIComponents")
-		float MovementAccurency = 50;
+		float MovementAccurency = 100;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AIComponents", Meta = (MakeEditWidget = true))
 		TArray<ATargetPoint*> PatrollingPoints;
 

@@ -129,6 +129,9 @@ bool ATankAIController::CanFire()
 
 bool ATankAIController::IsPlayerSeen()
 {
+	if (!PlayerPawn)
+		Initialize();
+
 	FVector playerPos = PlayerPawn->GetActorLocation();
 	FVector eyesPos = TankPawn->GetEyesPosition();
 	FHitResult hitResult;
@@ -177,7 +180,7 @@ void ATankAIController::Initialize()
 	}
 	for (FVector point : points)
 	{
-		PatrollingPoints.Add(point + pawnLocation);
+		PatrollingPoints.Add(point);
 	}
 	PatrollingIndex = 0;
 }
