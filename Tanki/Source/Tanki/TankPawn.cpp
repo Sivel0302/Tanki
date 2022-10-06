@@ -59,7 +59,6 @@ void ATankPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//SetupCannon(CannonClass);
 	TankController = Cast<ATankController>(GetController());
 }
 

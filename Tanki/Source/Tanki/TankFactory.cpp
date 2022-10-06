@@ -40,8 +40,7 @@ void ATankFactory::BeginPlay()
 	Super::BeginPlay();
 
 	FTimerHandle SpawnTimer;
-	GetWorld()->GetTimerManager().SetTimer(SpawnTimer, this,
-		&ATankFactory::SpawnNewTank, SpawnTankRate, true, SpawnTankRate);
+	GetWorld()->GetTimerManager().SetTimer(SpawnTimer, this, &ATankFactory::SpawnNewTank, SpawnTankRate, true, SpawnTankRate);
 
 }
 

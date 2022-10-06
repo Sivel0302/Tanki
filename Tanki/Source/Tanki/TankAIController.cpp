@@ -13,17 +13,6 @@ void ATankAIController::BeginPlay()
 
 	Initialize();
 
-	/*TankPawn = Cast<ATankPawn>(GetPawn());
-	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-
-	FVector pawnLocation = TankPawn->GetActorLocation();
-	MovementAccurency = TankPawn->GetMovementAccurency();
-	TArray<FVector> points = TankPawn->GetPatrollingPoints();
-	for (FVector point : points)
-	{
-		PatrollingPoints.Add(point + pawnLocation);
-	}
-	PatrollingIndex = 0;*/
 }
 
 void ATankAIController::Tick(float DeltaSeconds)
