@@ -107,7 +107,10 @@ TArray<FVector> ATankPawn::GetPatrollingPoints()
 	TArray<FVector> points;
 	for (ATargetPoint* point : PatrollingPoints)
 	{
-		points.Add(point->GetActorLocation());
+		if (point)
+		{
+			points.Add(point->GetActorLocation());
+		}
 	}
 	return points;
 }

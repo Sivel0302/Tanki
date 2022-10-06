@@ -34,7 +34,10 @@ void ATankAIController::Tick(float DeltaSeconds)
 		Initialize();
 	if (!TankPawn)
 		return;
-
+	if (PatrollingPoints.Num() == 0)
+	{
+		return;
+	}
 	TankPawn->MoveForward(1);
 
 	float rotationValue = GetRotationValue();
@@ -168,6 +171,10 @@ void ATankAIController::Initialize()
 	FVector pawnLocation = TankPawn->GetActorLocation();
 	MovementAccurency = TankPawn->GetMovementAccurency();
 	TArray<FVector> points = TankPawn->GetPatrollingPoints();
+	if (points.Num() == 0)
+	{
+		return;
+	}
 	for (FVector point : points)
 	{
 		PatrollingPoints.Add(point + pawnLocation);
