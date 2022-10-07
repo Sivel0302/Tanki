@@ -39,8 +39,11 @@ void ATankFactory::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (MapLoader)
+		MapLoader->SetIsActivated(false);
+
 	FTimerHandle SpawnTimer;
-	GetWorld()->GetTimerManager().SetTimer(SpawnTimer, this, &ATankFactory::SpawnNewTank, SpawnTankRate, true, SpawnTankRate);
+	GetWorld()->GetTimerManager().SetTimer(SpawnTimer, this, &ATankFactory::SpawnNewTank, SpawnTankRate, true, 2);
 
 }
 
@@ -51,6 +54,9 @@ void ATankFactory::TakeDamage(FDamageData DamageData)
 
 void ATankFactory::Die()
 {
+	if (MapLoader)
+		MapLoader->SetIsActivated(true);
+
 	Destroy();
 }
 

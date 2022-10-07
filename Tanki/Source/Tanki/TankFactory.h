@@ -11,6 +11,7 @@
 #include "TankPawn.h"
 #include <Engine/TargetPoint.h>
 #include "DamageTaker.h"
+#include "MapLoader.h"
 #include "TankFactory.generated.h"
 
 UCLASS()
@@ -49,6 +50,9 @@ protected:
 		float SpawnTankRate = 10;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn tanks params")
 		TArray<ATargetPoint*> TankWayPoints;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapLoader")
+		AMapLoader* MapLoader;
 
 
 };
