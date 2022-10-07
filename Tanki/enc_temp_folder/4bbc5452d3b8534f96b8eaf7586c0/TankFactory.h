@@ -46,7 +46,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn tanks params")
 		TSubclassOf<ATankPawn> SpawnTankClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn tanks params")
-		float SpawnTankRate = 10;
+		float SpawnTankRate = 2;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn tanks params")
 		TArray<ATargetPoint*> TankWayPoints;
 
