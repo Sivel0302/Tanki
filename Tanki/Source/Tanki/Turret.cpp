@@ -16,21 +16,6 @@
 // Sets default values
 ATurret::ATurret() : AParentPawn()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	/*PrimaryActorTick.bCanEverTick = true;
-
-	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
-	RootComponent = BoxCollision;
-
-	BodyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyMesh"));
-	BodyMesh->SetupAttachment(BoxCollision);
-
-	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
-	TurretMesh->SetupAttachment(BodyMesh);
-
-	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
-	CannonSetupPoint->SetupAttachment(TurretMesh);*/
-
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnDie.AddUObject(this, &ATurret::Destroyed);
 	HealthComponent->OnHealthChanged.AddUObject(this, &ATurret::DamageTaked);
@@ -63,8 +48,6 @@ int ATurret::GetScore()
 void ATurret::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//SetupCannon(CannonClass);
 	
 	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 
@@ -122,31 +105,6 @@ bool ATurret::CanFire()
 	return (aimAngle <= Accurency);
 
 }
-
-//void ATurret::Fire()
-//{
-//	if (Cannon)
-//	{
-//		if (Patrons > 0 && Cannon->IsReadyToFire())
-//		{
-//			Cannon->Fire();
-//			Patrons--;
-//		}
-//	}
-//}
-
-//void ATurret::SetupCannon()
-//{
-//	if (!CannonClass)
-//	{
-//		return;
-//	}
-//	FActorSpawnParameters params;
-//	params.Owner = this;
-//	Cannon = GetWorld()->SpawnActor<ACannon>(CannonClass, params);
-//	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-//}
-
 
 void ATurret::DamageTaked(float Value)
 {

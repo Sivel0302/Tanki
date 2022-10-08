@@ -14,6 +14,9 @@
 #include "MapLoader.h"
 #include <Particles/ParticleSystem.h>
 #include <Particles/ParticleSystemComponent.h>
+#include <Engine/StaticMesh.h>
+#include <Materials/Material.h>
+#include <Materials/MaterialInterface.h>
 #include "TankFactory.generated.h"
 
 UCLASS()
@@ -41,6 +44,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		UStaticMeshComponent* BuildingMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		UStaticMesh* DieMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		UMaterialInterface* DieMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		UBoxComponent* BoxCollider;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
