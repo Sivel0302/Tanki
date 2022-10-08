@@ -47,7 +47,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
 		UParticleSystem* DieEffect;
-
 	class UParticleSystemComponent* Template;
 
 

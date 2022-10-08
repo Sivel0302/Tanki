@@ -9,6 +9,7 @@
 #include "HealthComponent.h"
 #include "TankPawn.h"
 #include <Kismet/GameplayStatics.h>
+#include <Particles/ParticleSystemComponent.h>
 
 // Sets default values
 ATankFactory::ATankFactory()
@@ -33,6 +34,10 @@ ATankFactory::ATankFactory()
 	HealthComponent->OnHealthChanged.AddUObject(this, &ATankFactory::DamageTaked);
 	HealthComponent->OnDie.AddUObject(this, &ATankFactory::Die);
 
+	SpawnEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("SpawnEffect"));
+	SpawnEffect->SetAutoActivate(false);
+	SpawnEffect->SetupAttachment(TankSpawnPoint);
+
 }
 
 void ATankFactory::BeginPlay()
@@ -56,7 +61,7 @@ void ATankFactory::Die()
 {
 	if (MapLoader)
 		MapLoader->SetIsActivated(true);
-
+	DieEffects();
 	Destroy();
 }
 
@@ -68,6 +73,11 @@ void ATankFactory::DamageTaked(float DamageValue)
 
 void ATankFactory::SpawnNewTank()
 {
+	if (SpawnEffect)
+	{
+		SpawnEffect->ActivateSystem();
+	}
+
 	FTransform spawnTransform(TankSpawnPoint->GetComponentRotation(), TankSpawnPoint->GetComponentLocation(), FVector(1));
 	ATankPawn* newTank = GetWorld()->SpawnActorDeferred<ATankPawn>(SpawnTankClass,
 		spawnTransform, this, nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
@@ -75,5 +85,15 @@ void ATankFactory::SpawnNewTank()
 	newTank->SetPatrollingPoints(TankWayPoints);
 	UGameplayStatics::FinishSpawningActor(newTank, spawnTransform);
 
+}
+
+void ATankFactory::DieEffects()
+{
+	if (DieEffect)
+	{
+		Template = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DieEffect, BuildingMesh->GetComponentLocation());
+		//DestructionParticle->SetWorldScale3D(FVector(1.0, 1.0, 1.0) * 3.0);
+		//GetStaticMeshComponent()->SetVisibility(false, true); // hide it
+	}
 }
 

@@ -12,6 +12,8 @@
 #include <Engine/TargetPoint.h>
 #include "DamageTaker.h"
 #include "MapLoader.h"
+#include <Particles/ParticleSystem.h>
+#include <Particles/ParticleSystemComponent.h>
 #include "TankFactory.generated.h"
 
 UCLASS()
@@ -34,6 +36,7 @@ protected:
 	UFUNCTION()
 		void DamageTaked(float DamageValue);
 	void SpawnNewTank();
+	void DieEffects();
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -53,6 +56,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapLoader")
 		AMapLoader* MapLoader;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
+		UParticleSystemComponent* SpawnEffect;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effects")
+		UParticleSystem* DieEffect;
+	class UParticleSystemComponent* Template;
 
 
 };
