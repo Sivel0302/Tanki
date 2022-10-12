@@ -85,9 +85,22 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 				}
 				else
 				{
+					UPrimitiveComponent* mesh = Cast<UPrimitiveComponent>(OtherActor->GetRootComponent());
+					if (mesh)
+					{
+						if (mesh->IsSimulatingPhysics())
+						{
+							FVector forceVector = OtherActor->GetActorLocation() - GetActorLocation();
+							forceVector.Normalize();
+							mesh->AddImpulse(forceVector * PushForce, NAME_None, true);
+						}
+					}
+					else
+					{
+						UE_LOG(LogTemp, Warning, TEXT("Mesh is not valid"));
+					}
 					//OtherActor->Destroy();
 				}
-				//TakeDamageEffect->ActivateSystem(true);
 				if (TakeDamageEffect)
 				{
 					FVector ExplosionLocation = ProjectileMesh->GetComponentLocation();

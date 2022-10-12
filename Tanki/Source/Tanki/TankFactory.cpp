@@ -63,7 +63,7 @@ void ATankFactory::Die()
 		MapLoader->SetIsActivated(true);
 	DieEffects();
 	BuildingMesh->SetStaticMesh(DieMesh);
-	BuildingMesh->GetStaticMesh()->SetMaterial(0, DieMaterial);
+	//BuildingMesh->GetStaticMesh()->SetMaterial(0, DieMaterial);
 	//Destroy();
 }
 

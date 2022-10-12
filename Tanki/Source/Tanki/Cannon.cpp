@@ -100,7 +100,7 @@ void ACannon::FireFire()
 
 	if (CameraShake)
 	{
-		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(CameraShake);
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(CameraShake);
 	}
 
 	if (CannonType == ECannonType::FireProjectile)

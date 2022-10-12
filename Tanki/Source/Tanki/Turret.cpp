@@ -20,7 +20,7 @@ ATurret::ATurret() : AParentPawn()
 	HealthComponent->OnDie.AddUObject(this, &ATurret::Destroyed);
 	HealthComponent->OnHealthChanged.AddUObject(this, &ATurret::DamageTaked);
 
-	UStaticMesh* bodyMeshTemp = LoadObject<UStaticMesh>(this, *BodyMeshPath);
+	/*UStaticMesh* bodyMeshTemp = LoadObject<UStaticMesh>(this, *BodyMeshPath);
 	if (bodyMeshTemp)
 	{
 		BodyMesh->SetStaticMesh(bodyMeshTemp);
@@ -29,7 +29,7 @@ ATurret::ATurret() : AParentPawn()
 	if (turretMeshTemp)
 	{
 		TurretMesh->SetStaticMesh(turretMeshTemp);
-	}
+	}*/
 
 
 }
@@ -54,6 +54,22 @@ void ATurret::BeginPlay()
 	FTimerHandle targetingTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(targetingTimerHandle, this, &ATurret::Targeting, TargetingRate, true, TargetingRate);
 	
+}
+
+void ATurret::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	UStaticMesh* bodyMeshTemp = LoadObject<UStaticMesh>(this, *BodyMeshPath);
+	if (bodyMeshTemp)
+	{
+		BodyMesh->SetStaticMesh(bodyMeshTemp);
+	}
+	UStaticMesh* turretMeshTemp = LoadObject<UStaticMesh>(this, *TurretMeshPath);
+	if (turretMeshTemp)
+	{
+		TurretMesh->SetStaticMesh(turretMeshTemp);
+	}
 }
 
 void ATurret::Targeting()

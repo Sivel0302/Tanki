@@ -38,6 +38,9 @@ protected:
 		class UNiagaraSystem* TakeDamageEffect;
 
 	FTimerHandle MoveTimer;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+		float PushForce = 1000;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -47,11 +50,11 @@ public:
 	class ATankPawn* TankPawn;
 	class AActor* Owner;
 
-	void Start();
+	virtual void Start();
 
 protected:
 	virtual void BeginPlay() override;
 
-	void Move();
+	virtual void Move();
 
 };
