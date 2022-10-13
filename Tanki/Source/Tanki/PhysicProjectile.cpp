@@ -55,8 +55,7 @@ void APhysicProjectile::Move()
 		}
 		else
 		{
-			FRotator newRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(),
-				CurrentTrajectory[TragectoryPointIndex]);
+			FRotator newRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentTrajectory[TragectoryPointIndex]);
 			SetActorRotation(newRotation);
 		}
 	}
