@@ -7,6 +7,8 @@
 #include <Kismet/KismetMathLibrary.h>
 #include "DamageTaker.h"
 #include "GameStructs.h"
+#include <Components/SphereComponent.h>
+#include <Engine/EngineTypes.h>
 
 APhysicProjectile::APhysicProjectile()
 {
@@ -14,6 +16,11 @@ APhysicProjectile::APhysicProjectile()
 
 	TrailEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("TrailEffect"));
 	TrailEffect->SetupAttachment(RootComponent);
+
+	/*SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
+	SphereCollision->SetupAttachment(RootComponent);
+	SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &APhysicProjectile::OnMeshOverlapBegin);
+	SphereCollision->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);*/
 }
 
 void APhysicProjectile::Start()
@@ -47,7 +54,10 @@ void APhysicProjectile::Move()
 		TragectoryPointIndex++;
 		if (TragectoryPointIndex >= CurrentTrajectory.Num())
 		{
-			Explode();
+			if (bExplode)
+			{
+				Explode();
+			}
 			Destroy();
 		}
 		else
@@ -88,30 +98,49 @@ void APhysicProjectile::Explode()
 			{
 				continue;
 			}
-
-			IDamageTaker* damageTakerActor = Cast<IDamageTaker>(otherActor);
-			if (damageTakerActor)
-			{
-				FDamageData damageData;
-				damageData.DamageValue = Damage;
-				damageData.Instigator = GetOwner();
-				damageData.DamageMaker = this;
-
-				damageTakerActor->TakeDamage(damageData);
-			}
-			else
-			{
-				UPrimitiveComponent* mesh = Cast<UPrimitiveComponent>(otherActor->GetRootComponent());
-				if (mesh)
-				{
-					if (mesh->IsSimulatingPhysics())
-					{
-						FVector forceVector = otherActor->GetActorLocation() - GetActorLocation();
-						forceVector.Normalize();
-						mesh->AddImpulse(forceVector * PushForce, NAME_None, true);
-					}
-				}
-			}
+			TakeDamagePawn(otherActor);
 		}
 	}
 }
+
+void APhysicProjectile::TakeDamagePawn(AActor* otherActor)
+{
+	IDamageTaker* damageTakerActor = Cast<IDamageTaker>(otherActor);
+	if (damageTakerActor)
+	{
+		FDamageData damageData;
+		damageData.DamageValue = Damage;
+		damageData.Instigator = GetOwner();
+		damageData.DamageMaker = this;
+
+		damageTakerActor->TakeDamage(damageData);
+	}
+	else
+	{
+		TakeImpulse(otherActor);
+	}
+}
+
+void APhysicProjectile::TakeImpulse(AActor* otherActor)
+{
+	UPrimitiveComponent* mesh = Cast<UPrimitiveComponent>(otherActor->GetRootComponent());
+	if (mesh)
+	{
+		if (mesh->IsSimulatingPhysics())
+		{
+			FVector forceVector = otherActor->GetActorLocation() - GetActorLocation();
+			forceVector.Normalize();
+			//mesh->AddImpulse(forceVector * PushForce, NAME_None, true);
+			mesh->AddForce(forceVector * PushForce, NAME_None, true);
+		}
+	}
+}
+
+//void APhysicProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+//{
+//	if (bExplode)
+//	{
+//		Explode();
+//	}
+//	Destroy();
+//}

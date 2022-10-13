@@ -14,7 +14,9 @@ TArray<FVector> UPhysicsComponent::GenerateTrajectory(FVector StartPos, FVector 
 	{
 		FVector position = StartPos + Velocity * time + gravityVector * time * time / 2;
 		if (position.Z <= MinZValue)
+		{
 			break;
+		}
 		trajectory.Add(position);
 	}
 	return trajectory;

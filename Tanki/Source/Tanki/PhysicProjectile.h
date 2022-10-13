@@ -24,6 +24,12 @@ public:
 protected:
 	virtual void Move() override;
 	void Explode();
+	void TakeDamagePawn(AActor* otherActor);
+	void TakeImpulse(AActor* otherActor);
+	/*UFUNCTION()
+		void OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor*
+			OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool
+			bFromSweep, const FHitResult& SweepResult);*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 		UPhysicsComponent* PhysicsComponent;
@@ -38,10 +44,13 @@ protected:
 		float TimeStep = 1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementParams")
 		float MovementSpeed = 50.0f;
-	UPROPERTY(EditAnywhere, Category = "MovementParams")
-		float ExplodeRadius = 50;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementParams")
 		bool bShowTrajectory = true;
+
+	UPROPERTY(EditAnywhere, Category = "ExplodeParams")
+		float ExplodeRadius = 50;
+	UPROPERTY(EditAnywhere, Category = "ExplodeParams")
+		bool bExplode = true;
 
 	UPROPERTY(BlueprintReadWrite, Category = "MovementParams")
 		FVector MoveVector;
