@@ -18,12 +18,17 @@ APhysicProjectile::APhysicProjectile()
 	TrailEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("TrailEffect"));
 	TrailEffect->SetupAttachment(RootComponent);
 
+	/*SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
+	SphereCollision->SetupAttachment(RootComponent);*/
+	/*SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &APhysicProjectile::OnMeshOverlapBegin);
+	SphereCollision->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);*/
 }
 
 void APhysicProjectile::Start()
 {
 	MoveVector = GetActorForwardVector() * MovementSpeed;
-	CurrentTrajectory = PhysicsComponent->GenerateTrajectory(GetActorLocation(), MoveVector, MaxTimeSimulation, TimeStep, 0);
+	CurrentTrajectory = PhysicsComponent->GenerateTrajectory(GetActorLocation(),
+		MoveVector, MaxTimeSimulation, TimeStep, 0);
 	if (bShowTrajectory)
 	{
 		for (FVector position : CurrentTrajectory)
@@ -49,8 +54,11 @@ void APhysicProjectile::Move()
 	{
 		TragectoryPointIndex++;
 		if (TragectoryPointIndex >= CurrentTrajectory.Num())
-		{			
-			Explode();
+		{
+			if (bExplode)
+			{
+				Explode();
+			}
 			Destroy();
 		}
 		else
@@ -64,37 +72,34 @@ void APhysicProjectile::Move()
 
 void APhysicProjectile::Explode()
 {
-	if (bExplode)
+	FVector startPos = GetActorLocation();
+	FVector endPos = startPos + FVector(0.1f);
+
+	FCollisionShape Shape = FCollisionShape::MakeSphere(ExplodeRadius);
+	FCollisionQueryParams params = FCollisionQueryParams::DefaultQueryParam;
+	params.AddIgnoredActor(this);
+	params.bTraceComplex = true;
+	params.TraceTag = "Explode Trace";
+
+	TArray<FHitResult> AttackHit;
+	FQuat Rotation = FQuat::Identity;
+
+	bool bSweepResult = GetWorld()->SweepMultiByChannel(AttackHit, startPos, endPos, Rotation,
+		ECollisionChannel::ECC_Visibility, Shape,params);
+
+	//GetWorld()->DebugDrawTraceTag = "Explode Trace";
+	DrawDebugSphere(GetWorld(), startPos, ExplodeRadius, 5, FColor::Green, false, 2.0f);
+
+	if (bSweepResult)
 	{
-		FVector startPos = GetActorLocation();
-		FVector endPos = startPos + FVector(0.1f);
-
-		FCollisionShape Shape = FCollisionShape::MakeSphere(ExplodeRadius);
-		FCollisionQueryParams params = FCollisionQueryParams::DefaultQueryParam;
-		params.AddIgnoredActor(this);
-		params.bTraceComplex = true;
-		params.TraceTag = "Explode Trace";
-
-		TArray<FHitResult> AttackHit;
-		FQuat Rotation = FQuat::Identity;
-
-		bool bSweepResult = GetWorld()->SweepMultiByChannel(AttackHit, startPos, endPos, Rotation,
-			ECollisionChannel::ECC_Visibility, Shape, params);
-
-		//GetWorld()->DebugDrawTraceTag = "Explode Trace";
-		DrawDebugSphere(GetWorld(), startPos, ExplodeRadius, 5, FColor::Green, false, 2.0f);
-
-		if (bSweepResult)
+		for (FHitResult hitResult : AttackHit)
 		{
-			for (FHitResult hitResult : AttackHit)
+			AActor* otherActor = hitResult.GetActor();
+			if (!otherActor)
 			{
-				AActor* otherActor = hitResult.GetActor();
-				if (!otherActor)
-				{
-					continue;
-				}
-				TakeDamagePawn(otherActor);
+				continue;
 			}
+			TakeDamagePawn(otherActor);
 		}
 	}
 }
