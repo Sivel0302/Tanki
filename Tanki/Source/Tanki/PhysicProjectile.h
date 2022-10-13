@@ -23,7 +23,7 @@ public:
 
 protected:
 	virtual void Move() override;
-	void Explode();
+	virtual void Explode() override;
 	void TakeDamagePawn(AActor* otherActor);
 	void TakeImpulse(AActor* otherActor);
 	/*UFUNCTION()

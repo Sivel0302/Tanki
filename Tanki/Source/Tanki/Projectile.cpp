@@ -103,6 +103,7 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 					FVector ExplosionLocation = ProjectileMesh->GetComponentLocation();
 					UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), TakeDamageEffect, ExplosionLocation);
 				}
+				Explode();
 				Destroy();
 			}
 		}

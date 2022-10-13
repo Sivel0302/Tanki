@@ -14,6 +14,7 @@ class TANKI_API AProjectile : public AActor
 	GENERATED_BODY()
 
 protected:
+	virtual void Explode() {};
 	UFUNCTION()
 		void OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor*
 			OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool

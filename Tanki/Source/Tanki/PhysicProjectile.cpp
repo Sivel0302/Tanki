@@ -9,6 +9,7 @@
 #include "GameStructs.h"
 #include <Components/SphereComponent.h>
 #include <Engine/EngineTypes.h>
+#include <Components/PrimitiveComponent.h>
 
 APhysicProjectile::APhysicProjectile()
 {
@@ -18,8 +19,8 @@ APhysicProjectile::APhysicProjectile()
 	TrailEffect->SetupAttachment(RootComponent);
 
 	/*SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
-	SphereCollision->SetupAttachment(RootComponent);
-	SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &APhysicProjectile::OnMeshOverlapBegin);
+	SphereCollision->SetupAttachment(RootComponent);*/
+	/*SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &APhysicProjectile::OnMeshOverlapBegin);
 	SphereCollision->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);*/
 }
 
