@@ -14,6 +14,7 @@ class TANKI_API AProjectile : public AActor
 	GENERATED_BODY()
 
 protected:
+	virtual void Tick(float DeltaTime) override;
 	virtual void Explode() {};
 	UFUNCTION()
 		void OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor*
@@ -50,6 +51,8 @@ public:
 	class ACannon* Cannon;
 	class ATankPawn* TankPawn;
 	class AActor* Owner;
+	UPROPERTY()
+		APawn* PlayerPawn;
 
 	virtual void Start();
 

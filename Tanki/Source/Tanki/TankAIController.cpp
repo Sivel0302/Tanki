@@ -73,6 +73,7 @@ float ATankAIController::GetRotationValue()
 
 void ATankAIController::Targeting()
 {
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 	if (!TankPawn)
 	{
 		return;
@@ -92,7 +93,11 @@ void ATankAIController::Targeting()
 
 void ATankAIController::RotateToPlayer()
 {
-	TankPawn->RotateTurretTo(PlayerPawn->GetActorLocation());
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn)
+	{
+		TankPawn->RotateTurretTo(PlayerPawn->GetActorLocation());
+	}
 }
 
 void ATankAIController::Fire()
@@ -102,22 +107,39 @@ void ATankAIController::Fire()
 
 bool ATankAIController::IsPlayerInRange()
 {
-	return FVector::Distance(TankPawn->GetActorLocation(), PlayerPawn->GetActorLocation()) <= TargetingRange;
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn)
+	{
+		return FVector::Distance(TankPawn->GetActorLocation(), PlayerPawn->GetActorLocation()) <= TargetingRange;
+	}
+	else
+	{
+		return false;
+	}
 
 }
 
 bool ATankAIController::CanFire()
 {
-	FVector targetingDir = TankPawn->GetTurretForwardVector();
-	FVector dirToPlayer = PlayerPawn->GetActorLocation() - TankPawn->GetActorLocation();
-	dirToPlayer.Normalize();
-	float AimAngle = FMath::RadiansToDegrees(acosf(FVector::DotProduct(targetingDir, dirToPlayer)));
-	return AimAngle <= Accurency;
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn)
+	{
+		FVector targetingDir = TankPawn->GetTurretForwardVector();
+		FVector dirToPlayer = PlayerPawn->GetActorLocation() - TankPawn->GetActorLocation();
+		dirToPlayer.Normalize();
+		float AimAngle = FMath::RadiansToDegrees(acosf(FVector::DotProduct(targetingDir, dirToPlayer)));
+		return AimAngle <= Accurency;
+	}
+	else
+	{
+		return false;
+	}
 
 }
 
 bool ATankAIController::IsPlayerSeen()
 {
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 	if (!PlayerPawn)
 		Initialize();
 

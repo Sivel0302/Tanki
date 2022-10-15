@@ -43,7 +43,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementParams")
 		float TimeStep = 1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementParams")
-		float MovementSpeed = 50.0f;
+		float MovementSpeed = 100.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementParams")
 		bool bShowTrajectory = true;
 

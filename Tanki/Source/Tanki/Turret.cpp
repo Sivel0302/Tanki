@@ -74,6 +74,7 @@ void ATurret::PostInitializeComponents()
 
 void ATurret::Targeting()
 {
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 	if (!PlayerPawn)
 	{
 		return;
@@ -99,26 +100,46 @@ void ATurret::Destroyed()
 
 void ATurret::RotateToPlayer()
 {
-	FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), PlayerPawn->GetActorLocation());
-	FRotator currentRotation = TurretMesh->GetComponentRotation();
-	targetRotation.Pitch = currentRotation.Pitch;
-	targetRotation.Roll = currentRotation.Roll;
-	TurretMesh->SetWorldRotation(FMath::Lerp(currentRotation, targetRotation, TargetingSpeed));
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn)
+	{
+		FRotator targetRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), PlayerPawn->GetActorLocation());
+		FRotator currentRotation = TurretMesh->GetComponentRotation();
+		targetRotation.Pitch = currentRotation.Pitch;
+		targetRotation.Roll = currentRotation.Roll;
+		TurretMesh->SetWorldRotation(FMath::Lerp(currentRotation, targetRotation, TargetingSpeed));
+	}
 }
 
 bool ATurret::IsPlayerInRange()
 {
-	return FVector::Distance(PlayerPawn->GetActorLocation(), GetActorLocation()) <= TargetingRange;
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn)
+	{
+		return FVector::Distance(PlayerPawn->GetActorLocation(), GetActorLocation()) <= TargetingRange;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool ATurret::CanFire()
 {
-	FVector targetingDir = TurretMesh->GetForwardVector();
-	FVector dirToPlayer = PlayerPawn->GetActorLocation() - GetActorLocation();
-	dirToPlayer.Normalize();
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn)
+	{
+		FVector targetingDir = TurretMesh->GetForwardVector();
+		FVector dirToPlayer = PlayerPawn->GetActorLocation() - GetActorLocation();
+		dirToPlayer.Normalize();
 
-	float aimAngle = FMath::RadiansToDegrees(acosf(FVector::DotProduct(targetingDir, dirToPlayer)));
-	return (aimAngle <= Accurency);
+		float aimAngle = FMath::RadiansToDegrees(acosf(FVector::DotProduct(targetingDir, dirToPlayer)));
+		return (aimAngle <= Accurency);
+	}
+	else
+	{
+		return false;
+	}
 
 }
 
@@ -129,32 +150,40 @@ void ATurret::DamageTaked(float Value)
 
 bool ATurret::IsPlayerSeen()
 {
-	FVector playerPos = PlayerPawn->GetActorLocation();
-	FVector eyesPos = GetEyesPosition();
-	FHitResult hitResult;
-	FCollisionQueryParams params;
-	params.bTraceComplex = true;
-	params.AddIgnoredActor(this);
-	params.bReturnPhysicalMaterial = false;
-
-	if (GetWorld()->LineTraceSingleByChannel(hitResult, eyesPos, playerPos, ECollisionChannel::ECC_Visibility, params))
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn)
 	{
-		AActor* hitActor = hitResult.GetActor();
-		if (hitActor) {
-			if (hitActor == PlayerPawn)
-			{
-				DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Red, false, 0.5f, 0, 10);
-				return true;
-			}
-			else
-			{
-				DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Green, false, 0.5f, 0, 10);
-				return false;
+		FVector playerPos = PlayerPawn->GetActorLocation();
+		FVector eyesPos = GetEyesPosition();
+		FHitResult hitResult;
+		FCollisionQueryParams params;
+		params.bTraceComplex = true;
+		params.AddIgnoredActor(this);
+		params.bReturnPhysicalMaterial = false;
+
+		if (GetWorld()->LineTraceSingleByChannel(hitResult, eyesPos, playerPos, ECollisionChannel::ECC_Visibility, params))
+		{
+			AActor* hitActor = hitResult.GetActor();
+			if (hitActor) {
+				if (hitActor == PlayerPawn)
+				{
+					DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Red, false, 0.5f, 0, 10);
+					return true;
+				}
+				else
+				{
+					DrawDebugLine(GetWorld(), eyesPos, hitResult.Location, FColor::Green, false, 0.5f, 0, 10);
+					return false;
+				}
 			}
 		}
+		DrawDebugLine(GetWorld(), eyesPos, playerPos, FColor::Black, false, 0.5f, 0, 10);
+		return false;
 	}
-	DrawDebugLine(GetWorld(), eyesPos, playerPos, FColor::Black, false, 0.5f, 0, 10);
-	return false;
+	else
+	{
+		return false;
+	}
 }
 
 FVector ATurret::GetEyesPosition()

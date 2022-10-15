@@ -18,7 +18,7 @@
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	USceneComponent* SceeneComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	RootComponent = SceeneComp;
@@ -45,12 +45,26 @@ void AProjectile::BeginPlay()
 	Cannon = Cast<ACannon>(GetOwner());
 	TankPawn = Cast<ATankPawn>(Cannon->GetOwner());
 	Owner = Cannon->GetOwner();
+	PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 }
 
 void AProjectile::Move()
 {
 	FVector movePosition = GetActorLocation() + GetActorForwardVector() * MoveSpeed * MoveRate;
 	SetActorLocation(movePosition);
+}
+
+void AProjectile::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (PlayerPawn)
+	{
+		if (PlayerPawn->IsActorBeingDestroyed())
+		{
+			Destroy();
+		}
+	}
 }
 
 void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor*
@@ -73,7 +87,7 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 					if (ScoreActor && TankPawn)
 					{
 						if (OtherActor->IsActorBeingDestroyed())
-						{
+						{						
 							TankPawn->Score += ScoreActor->GetScore();
 							GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Score: %d"), TankPawn->Score));
 						}
