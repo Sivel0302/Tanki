@@ -145,7 +145,7 @@ bool ATurret::CanFire()
 
 void ATurret::DamageTaked(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
+	//UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
 }
 
 bool ATurret::IsPlayerSeen()

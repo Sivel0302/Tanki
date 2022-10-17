@@ -152,7 +152,7 @@ void ATankPawn::Fire()
 {
 	Super::Fire();
 	if (TankController) {
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
+		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
 	}
 }
 
@@ -164,7 +164,7 @@ void ATankPawn::FireSpecial()
 		{
 			Cannon->FireSpecial();
 			Patrons -= Cannon->FireKolvoSpecial;
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
+			//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Patrons: %d"), Patrons));
 		}
 	}
 }
@@ -187,7 +187,7 @@ void ATankPawn::Die()
 
 void ATankPawn::DamageTaked(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
+	//UE_LOG(LogTemp, Warning, TEXT("Turret %s taked damage: %f, health: %f"), *GetName(), Value, HealthComponent->GetHealth());
 }
 
 
