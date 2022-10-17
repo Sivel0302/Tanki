@@ -93,22 +93,6 @@ void ATankController::ChangeCannon()
 
 	if (TankPawn)
 	{
-		//if (TankPawn->CannonClass == TankPawn->CannonClass1) {
-		//	//TankPawn->CannonClass = TankPawn->CannonClass2;
-		//	TankPawn->SetupCannon(TankPawn->CannonClass2);
-		//	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 2")));
-		//}
-		//else if (TankPawn->CannonClass == TankPawn->CannonClass2) {
-		//	//TankPawn->CannonClass = TankPawn->CannonClass3;
-		//	TankPawn->SetupCannon(TankPawn->CannonClass3);
-		//	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 3")));
-		//}
-		//else if (TankPawn->CannonClass == TankPawn->CannonClass3) {
-		//	//TankPawn->CannonClass = TankPawn->CannonClass1;
-		//	TankPawn->SetupCannon(TankPawn->CannonClass1);
-		//	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Change cannon 1")));
-		//}
-
 		if (TankPawn->CannonNumber < 3)
 		{
 			TankPawn->CannonNumber++;

@@ -19,7 +19,7 @@ class UstaticMeshComponent;
 class ACannon;
 class ATargetPoint;
 UCLASS()
-class TANKI_API ATankPawn : public AParentPawn, public IDamageTaker
+class TANKI_API ATankPawn : public AParentPawn, public IDamageTaker, public IIScorable
 {
 	GENERATED_BODY()
 
@@ -37,6 +37,9 @@ public:
 
 	virtual void Fire() override;
 	void FireSpecial();
+
+	UFUNCTION()
+		virtual int GetScore() override;
 
 
 	UFUNCTION()
@@ -93,10 +96,13 @@ public:
 		float RotationSpeed = 100.0f;
 
 public:
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = "Cannon")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Score")
 		int Score = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
+		int AddScore = 10;
 
-	int CannonNumber = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Cannon")
+		int CannonNumber = 1;
 
 private:
 	class ATankController* TankController;
