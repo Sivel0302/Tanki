@@ -23,7 +23,7 @@ public:
 	float GetHealth() const;
 	void AddHealth(float newHealth);
 
-	//UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable)
 	float GetHealthState();
 
 protected:
