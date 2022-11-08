@@ -2,13 +2,17 @@
 
 
 #include "SRadioButtonsList.h"
-
+#include "SlateOptMacros.h"
+#include "Widgets/SBoxPanel.h"
+#include "Widgets/Input/SCheckBox.h"
+#include "Widgets/Text/STextBlock.h"
 #include "SlateOptMacros.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 void SRadioButtonsList::Construct(const FArguments& InArgs)
 {
+	OnRadioChoiceChanged = InArgs._OnRadioChoiceChanged;
 	ChildSlot
     [
 	    SNew(SVerticalBox)
@@ -36,8 +40,8 @@ END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 ECheckBoxState SRadioButtonsList::IsRadioButtonChecked(ERadioChoice RadioButtonID)
 {
     return (CurrentChoice == RadioButtonID)
-    ? ECheckBoxState::Checked
-    : ECheckBoxState::Unchecked;
+		? ECheckBoxState::Checked
+		: ECheckBoxState::Unchecked;
 }
 
 void SRadioButtonsList::HandleRadioButtonStateChanged(ECheckBoxState NewRadioState, ERadioChoice RadioButtonID)
@@ -45,6 +49,7 @@ void SRadioButtonsList::HandleRadioButtonStateChanged(ECheckBoxState NewRadioSta
     if (NewRadioState == ECheckBoxState::Checked)
     {
         CurrentChoice = RadioButtonID;
+    	OnRadioChoiceChanged.ExecuteIfBound(CurrentChoice);
     }
 }
 

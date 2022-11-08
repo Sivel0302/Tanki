@@ -15,6 +15,7 @@ enum class ERadioChoice : uint8
 	Radio2,
 };
 
+DECLARE_DELEGATE_OneParam(FOnRadioChoiceChanged, ERadioChoice /*NewRadioChoise*/);
 
 /**
  * 
@@ -24,6 +25,9 @@ class TANKI_API SRadioButtonsList : public SCompoundWidget
 public:
 	SLATE_BEGIN_ARGS(SRadioButtonsList)
 	{}
+	
+	/** Called when radio choice is changed */
+	SLATE_EVENT(FOnRadioChoiceChanged, OnRadioChoiceChanged)
 
 	SLATE_END_ARGS()
 
@@ -36,4 +40,5 @@ public:
 
 protected:
 	ERadioChoice CurrentChoice;
+	FOnRadioChoiceChanged OnRadioChoiceChanged;
 };
