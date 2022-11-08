@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Styling/SlateWidgetStyle.h"
 #include "Styling/SlateWidgetStyleContainerBase.h"
+#include "Styling/SlateTypes.h"
 
 #include "RadioButtonsWidgetStyle.generated.h"
 
@@ -24,6 +25,14 @@ struct TANKI_API FRadioButtonsStyle : public FSlateWidgetStyle
 	static const FName TypeName;
 	virtual const FName GetTypeName() const override { return TypeName; };
 	static const FRadioButtonsStyle& GetDefault();
+
+	/** Style of check boxes */
+    UPROPERTY(EditAnywhere, Category = Appearance)
+    FCheckBoxStyle CheckBoxStyle;
+    /** Style of options text */
+    UPROPERTY(EditAnywhere, Category = Appearance)
+    FTextBlockStyle TextStyle;
+
 };
 
 /**
