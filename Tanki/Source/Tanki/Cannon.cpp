@@ -87,7 +87,6 @@ bool ACannon::IsReadyToFire()
 	return bReadyToFire;
 }
 
-//сам огонь
 void ACannon::FireFire()
 {
 	if (!IsReadyToFire())
