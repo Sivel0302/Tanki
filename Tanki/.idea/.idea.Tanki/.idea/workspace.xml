@@ -7,8 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tanki/SRadioButtonsList.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/SRadioButtonsList.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tanki/SRadioButtonsList.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/SRadioButtonsList.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/W_SomeWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Widgets/W_SomeWidget.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +261,7 @@
       <workItem from="1667912880274" duration="7846000" />
       <workItem from="1667922673862" duration="1632000" />
       <workItem from="1667924896864" duration="2314000" />
-      <workItem from="1667928279235" duration="2002000" />
+      <workItem from="1667928279235" duration="4055000" />
     </task>
     <servers />
   </component>
