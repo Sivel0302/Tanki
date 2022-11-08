@@ -5,6 +5,17 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
+// для чисто слейтовских виджетов можно использовать обычный C++ енам, но мы будем
+// расширять этот виджет в блюпринты, поэтому сразу создаём UENUM
+UENUM(BlueprintType)
+enum class ERadioChoice : uint8
+{
+	Radio0,
+	Radio1,
+	Radio2,
+};
+
+
 /**
  * 
  */
@@ -18,4 +29,11 @@ public:
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
+
+	ECheckBoxState IsRadioButtonChecked(ERadioChoice RadioButtonID);
+	void HandleRadioButtonStateChanged(ECheckBoxState NewRadioState, ERadioChoice RadioButtonID);
+	TSharedRef<SWidget> CreateRadioButton(const FString& RadioText, ERadioChoice RadioButtonChoice);
+
+protected:
+	ERadioChoice CurrentChoice;
 };

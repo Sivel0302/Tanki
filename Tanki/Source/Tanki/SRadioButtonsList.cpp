@@ -15,32 +15,49 @@ void SRadioButtonsList::Construct(const FArguments& InArgs)
 	    + SVerticalBox::Slot()
 	    [
 			// first radio button
-			SNew(SCheckBox)
-		    [
-			    SNew(STextBlock)
-			    .Text(FText::FromString("Option1"))
-		    ]
+			CreateRadioButton("Option1", ERadioChoice::Radio0)
 	    ]
 	    + SVerticalBox::Slot()
 	    [
 		    // second radio button
-		    SNew(SCheckBox)
-			[
-			    SNew(STextBlock)
-			    .Text(FText::FromString("Option2"))
-		    ]
+			CreateRadioButton("Option2", ERadioChoice::Radio1)
 	    ]
 	    + SVerticalBox::Slot()
 	    [
 		    // third radio button
-		    SNew(SCheckBox)
-		    [
-			    SNew(STextBlock)
-			    .Text(FText::FromString("Option3"))
-		    ]
+			CreateRadioButton("Option3", ERadioChoice::Radio2)
 	    ]
     ];
 
 }
 
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
+
+ECheckBoxState SRadioButtonsList::IsRadioButtonChecked(ERadioChoice RadioButtonID)
+{
+    return (CurrentChoice == RadioButtonID)
+    ? ECheckBoxState::Checked
+    : ECheckBoxState::Unchecked;
+}
+
+void SRadioButtonsList::HandleRadioButtonStateChanged(ECheckBoxState NewRadioState, ERadioChoice RadioButtonID)
+{
+    if (NewRadioState == ECheckBoxState::Checked)
+    {
+        CurrentChoice = RadioButtonID;
+    }
+}
+
+TSharedRef<SWidget> SRadioButtonsList::CreateRadioButton(const FString& RadioText, ERadioChoice RadioButtonChoice)
+{
+	return SNew(SCheckBox)
+		.IsChecked(MakeAttributeRaw(this, &SRadioButtonsList::IsRadioButtonChecked, RadioButtonChoice))
+		.OnCheckStateChanged(this, &SRadioButtonsList::HandleRadioButtonStateChanged, RadioButtonChoice)
+		[
+			SNew(STextBlock)
+			.Text(FText::FromString(RadioText))
+		];
+
+}
+
+
