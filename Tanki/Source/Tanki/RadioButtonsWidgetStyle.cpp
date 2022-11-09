@@ -2,9 +2,12 @@
 
 
 #include "RadioButtonsWidgetStyle.h"
+#include "Styling/CoreStyle.h"
 
 FRadioButtonsStyle::FRadioButtonsStyle()
 {
+	CheckBoxStyle = FCoreStyle::Get().GetWidgetStyle<FCheckBoxStyle>("Checkbox");
+	TextStyle = FCoreStyle::Get().GetWidgetStyle<FTextBlockStyle>("NormalText");
 }
 
 FRadioButtonsStyle::~FRadioButtonsStyle()
