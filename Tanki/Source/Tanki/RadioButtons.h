@@ -18,6 +18,10 @@ class TANKI_API URadioButtons : public UWidget
 	GENERATED_BODY()
 
 public:
+	/** The button style used at runtime */
+    UPROPERTY(EditAnywhere, Category = "Appearance", meta = (DisplayName = "Style"))
+    FRadioButtonsStyle WidgetStyle;
+
 	/** Called when radio choice changed by click */
     UPROPERTY(BlueprintAssignable, Category = "RadioButtons|Event")
     FOnRadioChoiceChangedEvent OnRadioChoiceChanged;

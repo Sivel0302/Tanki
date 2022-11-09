@@ -12,6 +12,7 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 void SRadioButtonsList::Construct(const FArguments& InArgs)
 {
+	SetRadioButtonStyle(InArgs._Style);
 	OnRadioChoiceChanged = InArgs._OnRadioChoiceChanged;
 	ChildSlot
     [
@@ -58,11 +59,19 @@ TSharedRef<SWidget> SRadioButtonsList::CreateRadioButton(const FString& RadioTex
 	return SNew(SCheckBox)
 		.IsChecked(MakeAttributeRaw(this, &SRadioButtonsList::IsRadioButtonChecked, RadioButtonChoice))
 		.OnCheckStateChanged(this, &SRadioButtonsList::HandleRadioButtonStateChanged, RadioButtonChoice)
+		.Style(CheckBoxStyle)
 		[
 			SNew(STextBlock)
 			.Text(FText::FromString(RadioText))
+			.TextStyle(TextStyle)
 		];
 
+}
+
+void SRadioButtonsList::SetRadioButtonStyle(const FRadioButtonsStyle* InStyle)
+{
+	CheckBoxStyle = &InStyle->CheckBoxStyle;
+    TextStyle = &InStyle->TextStyle;
 }
 
 

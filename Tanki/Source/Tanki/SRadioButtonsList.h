@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RadioButtonsWidgetStyle.h"
 #include "Widgets/SCompoundWidget.h"
 
 // для чисто слейтовских виджетов можно использовать обычный C++ енам, но мы будем
@@ -28,6 +29,8 @@ public:
 	
 	/** Called when radio choice is changed */
 	SLATE_EVENT(FOnRadioChoiceChanged, OnRadioChoiceChanged)
+	/** The visual style of the radio button */
+	SLATE_STYLE_ARGUMENT(FRadioButtonsStyle, Style)
 
 	SLATE_END_ARGS()
 
@@ -38,7 +41,15 @@ public:
 	void HandleRadioButtonStateChanged(ECheckBoxState NewRadioState, ERadioChoice RadioButtonID);
 	TSharedRef<SWidget> CreateRadioButton(const FString& RadioText, ERadioChoice RadioButtonChoice);
 
+	/** See ButtonStyle attribute */
+	void SetRadioButtonStyle(const FRadioButtonsStyle* InStyle);
+
 protected:
 	ERadioChoice CurrentChoice;
 	FOnRadioChoiceChanged OnRadioChoiceChanged;
+
+	/** Style resource for check boxes */
+	const FCheckBoxStyle* CheckBoxStyle;
+	/** Style resource for text */
+	const FTextBlockStyle* TextStyle;
 };

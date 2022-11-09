@@ -21,6 +21,7 @@ void URadioButtons::HandleOnRadioChoiceChanged(ERadioChoice NewRadioChoise)
 TSharedRef<SWidget> URadioButtons::RebuildWidget()
 {
 	MyRadioButtons = SNew(SRadioButtonsList)
+	.Style(&WidgetStyle)
 	.OnRadioChoiceChanged(BIND_UOBJECT_DELEGATE(FOnRadioChoiceChanged, HandleOnRadioChoiceChanged));
 	return MyRadioButtons.ToSharedRef();
 }
