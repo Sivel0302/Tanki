@@ -20,7 +20,7 @@ public:
     UPROPERTY(EditAnywhere)
     FText FruitName;
 protected:
-    UPROPERTY(meta = (BindWidgetOptional))
+    UPROPERTY(meta = (BindWidget))
     UTextBlock * NameText;
 
 };
