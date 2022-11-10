@@ -3,3 +3,12 @@
 
 #include "DraggableItem.h"
 
+void UDraggableItem::NativePreConstruct()
+{
+	Super::NativePreConstruct();
+	
+	if (NameText)
+	{
+		NameText->SetText(FruitName);
+	}
+}

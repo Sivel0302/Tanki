@@ -13,5 +13,7 @@ UCLASS()
 class TANKI_API UFruitDragDropOperation : public UDragDropOperation
 {
 	GENERATED_BODY()
-	
+
+public:
+	FText FruitName;
 };
