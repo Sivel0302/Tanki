@@ -18,8 +18,7 @@ class TANKI_API UActorSpawnerWidget : public UUserWidget
 public:
 	virtual void NativeConstruct() override;
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
-	FReply NativeOnMouseButtonDown(const FGeometry& InGeometry,
-	const FPointerEvent& InMouseEvent) override;
+	FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 protected:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> DraggedActorClass;
