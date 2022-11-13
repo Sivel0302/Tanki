@@ -13,5 +13,12 @@ UCLASS()
 class TANKI_API AGeekBrainsUIPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+public:
+    AGeekBrainsUIPlayerController(const FObjectInitializer & Obj);
+    FSimpleMulticastDelegate OnMouseButtonUp;
+protected:
+    void SetupInputComponent() override;
+    void OnLeftMouseButtonUp();
+
 };
