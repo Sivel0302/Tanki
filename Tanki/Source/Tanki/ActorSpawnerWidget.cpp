@@ -4,14 +4,18 @@
 #include "ActorSpawnerWidget.h"
 
 #include "GeekBrainsUIPlayerController.h"
+#include "TankController.h"
 #include "Kismet/GameplayStatics.h"
 
 void UActorSpawnerWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 	PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	AGeekBrainsUIPlayerController * PC = Cast<AGeekBrainsUIPlayerController>(PlayerController);
-	PC->OnMouseButtonUp.AddUObject(this, &UActorSpawnerWidget::OnMouseButtonUp);
+	ATankController * PC = Cast<ATankController>(PlayerController);
+	if (PC)
+	{
+		PC->OnMouseButtonUp.AddUObject(this, &UActorSpawnerWidget::OnMouseButtonUp);
+	}
 }
 
 void UActorSpawnerWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)

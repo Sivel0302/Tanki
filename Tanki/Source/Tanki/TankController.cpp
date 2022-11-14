@@ -6,9 +6,10 @@
 #include <DrawDebugHelpers.h>
 
 
-ATankController::ATankController()
+ATankController::ATankController(const FObjectInitializer& Obj) : Super(Obj)
 {
 	bShowMouseCursor = true;
+	bEnableClickEvents = true;
 }
 
 void ATankController::SetPawn(APawn* InPawn)
@@ -20,12 +21,16 @@ void ATankController::SetPawn(APawn* InPawn)
 void ATankController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-	InputComponent->BindAxis("MoveForward", this, &ATankController::MoveForward);
-	InputComponent->BindAxis("MoveRight", this, &ATankController::MoveRight);
-	InputComponent->BindAxis("RotateRight", this, &ATankController::RotateRight);
-	InputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &ATankController::Fire);
-	InputComponent->BindAction("FireSpecial", EInputEvent::IE_Pressed, this, &ATankController::FireSpecial);
-	InputComponent->BindAction("ChangeCannon", EInputEvent::IE_Pressed, this, &ATankController::ChangeCannon);
+	if (InputComponent)
+	{
+		InputComponent->BindAxis("MoveForward", this, &ATankController::MoveForward);
+		InputComponent->BindAxis("MoveRight", this, &ATankController::MoveRight);
+		InputComponent->BindAxis("RotateRight", this, &ATankController::RotateRight);
+		InputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &ATankController::Fire);
+		InputComponent->BindAction("FireSpecial", EInputEvent::IE_Pressed, this, &ATankController::FireSpecial);
+		InputComponent->BindAction("ChangeCannon", EInputEvent::IE_Pressed, this, &ATankController::ChangeCannon);
+		InputComponent->BindKey(EKeys::LeftMouseButton, IE_Released, this, &ATankController::OnLeftMouseButtonUp);
+	}
 }
 
 
@@ -116,5 +121,13 @@ void ATankController::ChangeCannon()
 		{
 			TankPawn->SetupCannon(TankPawn->CannonClass3);
 		}
+	}
+}
+
+void ATankController::OnLeftMouseButtonUp()
+{
+	if (OnMouseButtonUp.IsBound())
+	{
+		OnMouseButtonUp.Broadcast();
 	}
 }

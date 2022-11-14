@@ -14,7 +14,7 @@ class TANKI_API ATankController : public APlayerController
 {
 	GENERATED_BODY()
 public:
-	ATankController();
+	ATankController(const FObjectInitializer & Obj);
 	virtual void SetPawn(APawn* InPawn) override;
 
 	FVector GetMousePos() { return MousePos; };
@@ -36,6 +36,11 @@ private:
 	void FireSpecial();
 
 	void ChangeCannon();
+	
+public:
+	FSimpleMulticastDelegate OnMouseButtonUp;
+protected:
+	void OnLeftMouseButtonUp();
 
 	
 };
