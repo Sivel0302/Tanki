@@ -7,6 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tanki/InventoryItem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/InventoryItem.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +271,7 @@
       <workItem from="1668086948765" duration="5621000" />
       <workItem from="1668341557007" duration="6086000" />
       <workItem from="1668428467644" duration="1373000" />
-      <workItem from="1668686660986" duration="1826000" />
+      <workItem from="1668686660986" duration="2489000" />
     </task>
     <servers />
   </component>

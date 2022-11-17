@@ -17,7 +17,7 @@ enum class EItemType : uint8
 	IT_Currency,
 	IT_Equipment,
 	IT_Consumable
-	};
+};
 UENUM()
 enum class EItemRarity : uint8
 {
@@ -26,7 +26,7 @@ enum class EItemRarity : uint8
 	IR_Rare,
 	IR_Epir,
 	IR_Legendary
-	};
+};
 USTRUCT(BlueprintType)
 struct FInventoryItemInfo : public FTableRowBase
 {
