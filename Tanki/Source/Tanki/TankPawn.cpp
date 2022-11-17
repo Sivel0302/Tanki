@@ -52,6 +52,10 @@ ATankPawn::ATankPawn() : AParentPawn()
 	/*HitCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit collider"));
 	HitCollider->SetupAttachment(BodyMesh);*/
 
+	//инвентарь
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory");
+	InventoryManagerComponent =	CreateDefaultSubobject<UInventoryManagerComponent>("InventoryManager");
+
 }
 
 // Called when the game starts or when spawned
@@ -60,6 +64,9 @@ void ATankPawn::BeginPlay()
 	Super::BeginPlay();
 
 	TankController = Cast<ATankController>(GetController());
+
+	//инвентарь
+	InventoryManagerComponent->Init(InventoryComponent);
 }
 
 // Called every frame

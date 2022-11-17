@@ -13,6 +13,9 @@
 #include <UObject/NoExportTypes.h>
 #include <Templates/SubclassOf.h>
 #include <Particles/ParticleSystemComponent.h>
+
+#include "InventoryComponent.h"
+#include "InventoryManagerComponent.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
@@ -103,6 +106,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Cannon")
 		int CannonNumber = 1;
+
+	//инвентарь
+	UPROPERTY(EditDefaultsOnly)
+	UInventoryComponent * InventoryComponent;
+	UPROPERTY(EditDefaultsOnly)
+	UInventoryManagerComponent * InventoryManagerComponent;
 
 private:
 	class ATankController* TankController;

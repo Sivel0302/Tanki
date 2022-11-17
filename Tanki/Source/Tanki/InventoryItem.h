@@ -65,9 +65,9 @@ struct FInventorySlotInfo
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FName Id = NAME_None;
+	FName ItemID = NAME_None;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	int Count;
+	int Amount;
 };
 
 
