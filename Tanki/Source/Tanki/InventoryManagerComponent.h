@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InventoryComponent.h"
+#include "InventoryWidget.h"
 #include "Components/ActorComponent.h"
 #include "InventoryManagerComponent.generated.h"
 
@@ -33,4 +34,11 @@ protected:
 	UInventoryComponent * LocalInventoryComponent;
 	UPROPERTY(EditAnywhere)
 	UDataTable * InventoryItemsData;
+
+	UPROPERTY()
+	UInventoryWidget * InventoryWidget;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UInventoryWidget> InventoryWidgetClass;
+	UPROPERTY(EditAnywhere)
+	int32 MinInventorySize = 20;
 };

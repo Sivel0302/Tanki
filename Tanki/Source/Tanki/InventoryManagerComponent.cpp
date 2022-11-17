@@ -19,20 +19,24 @@ UInventoryManagerComponent::UInventoryManagerComponent()
 void UInventoryManagerComponent::Init(UInventoryComponent* InInventoryComponent)
 {
 	LocalInventoryComponent = InInventoryComponent;
-	if (LocalInventoryComponent && InventoryItemsData)
-	{
-		for (auto& Item : LocalInventoryComponent->GetItems())
-		{
-			FInventoryItemInfo* ItemData = GetItemData(Item.Value.ItemID);
-			if (ItemData)
-			{
-				// TODO manage item
-				FString ItemDataStr = ItemData->Name.ToString() + ": " +
-				FString::FromInt(Item.Value.Amount);
-				GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Emerald, ItemDataStr);
-			}
-		}
-	}
+    if (LocalInventoryComponent && InventoryItemsData)
+    {
+	    ensure(InventoryWidgetClass);
+	    InventoryWidget = CreateWidget<UInventoryWidget>(GetWorld(),
+	    InventoryWidgetClass);
+	    InventoryWidget->AddToViewport();
+	    InventoryWidget->Init(FMath::Max(LocalInventoryComponent->GetItemsNum(), MinInventorySize));
+	    for (auto& Item : LocalInventoryComponent->GetItems())
+	    {
+		    FInventoryItemInfo* ItemData = GetItemData(Item.Value.ItemID);
+		    if (ItemData)
+		    {
+			    ItemData->Icon.LoadSynchronous();
+			    InventoryWidget->AddItem(Item.Value, *ItemData, Item.Key);
+		    }
+	    }
+    }
+
 }
 
 FInventoryItemInfo* UInventoryManagerComponent::GetItemData(FName ItemID)
