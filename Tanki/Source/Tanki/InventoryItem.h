@@ -59,6 +59,16 @@ public:
 	int Intelligence;
 };
 
+USTRUCT(BlueprintType)
+struct FInventorySlotInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName Id = NAME_None;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int Count;
+};
 
 
 UCLASS()
