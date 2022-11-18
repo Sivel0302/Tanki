@@ -25,6 +25,8 @@ public:
     void Clear();
     const FInventorySlotInfo& GetItem();
     int32 IndexInInventory = -1;
+
+	FOnItemDrop OnItemDrop;
 protected:
     bool bHasItem;
     UPROPERTY(meta = (BindWidgetOptional))
@@ -33,6 +35,12 @@ protected:
     UTextBlock* CountText;
     UPROPERTY()
     FInventorySlotInfo StoredItem;
-
+	
+	FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent,
+	UDragDropOperation*& OutOperation) override;
+	bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
+	UPROPERTY(EditDefaultsOnly)
+	bool bIsDraggable = true;
 	
 };
