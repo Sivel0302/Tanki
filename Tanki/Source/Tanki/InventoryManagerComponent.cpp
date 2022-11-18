@@ -22,8 +22,8 @@ void UInventoryManagerComponent::Init(UInventoryComponent* InInventoryComponent)
     if (LocalInventoryComponent && InventoryItemsData)
     {
 	    ensure(InventoryWidgetClass);
-	    InventoryWidget = CreateWidget<UInventoryWidget>(GetWorld(),
-	    InventoryWidgetClass);
+	    InventoryWidget = CreateWidget<UInventoryWidget>(GetWorld(), InventoryWidgetClass);
+    	InventoryWidget->OnItemDrop.AddUObject(this, &UInventoryManagerComponent::OnItemDropped);
 	    InventoryWidget->AddToViewport();
 	    InventoryWidget->Init(FMath::Max(LocalInventoryComponent->GetItemsNum(), MinInventorySize));
 	    for (auto& Item : LocalInventoryComponent->GetItems())
@@ -44,6 +44,22 @@ FInventoryItemInfo* UInventoryManagerComponent::GetItemData(FName ItemID)
 	return InventoryItemsData ?
 		InventoryItemsData->FindRow<FInventoryItemInfo>(ItemID, "") :
 		nullptr;
+}
+
+void UInventoryManagerComponent::OnItemDropped(UInventoryCellWidget* DraggedFrom, UInventoryCellWidget* DroppedTo)
+{
+	FInventorySlotInfo FromItem = DraggedFrom->GetItem();
+	FInventorySlotInfo ToItem = DroppedTo->GetItem();
+
+	DraggedFrom->Clear();
+	DroppedTo->Clear();
+
+	DroppedTo->AddItem(FromItem, *GetItemData(FromItem.ItemID));
+
+	if (!ToItem.ItemID.IsNone())
+	{
+		DraggedFrom->AddItem(ToItem, *GetItemData(ToItem.ItemID));
+	}
 }
 
 

@@ -68,11 +68,19 @@ UInventoryCellWidget* UInventoryWidget::CreateCellWidget()
 {
 	if (CellWidgetClass)
 	{
-		UInventoryCellWidget * CellWidget =
-		CreateWidget<UInventoryCellWidget>(this,
+		UInventoryCellWidget * CellWidget = CreateWidget<UInventoryCellWidget>(this,
 		CellWidgetClass);
 		CellWidgets.Add(CellWidget);
+		CellWidget->OnItemDrop.AddUObject(this, &UInventoryWidget::OnItemDropped);
 		return CellWidget;
 	}
 	return nullptr;
+}
+
+void UInventoryWidget::OnItemDropped(UInventoryCellWidget* DraggedFrom, UInventoryCellWidget* DroppedTo)
+{
+	if (OnItemDrop.IsBound())
+    {
+		OnItemDrop.Broadcast(DraggedFrom, DroppedTo);
+    }
 }

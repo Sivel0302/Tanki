@@ -22,6 +22,9 @@ public:
 	void Init(int32 ItemsNum);
 	bool AddItem(const FInventorySlotInfo& Item, const FInventoryItemInfo& ItemInfo,
 	int32 SlotPosition = -1);
+
+	FOnItemDrop OnItemDrop;
+	
 protected:
 	UPROPERTY(meta = (BindWidgetOptional))
 	UUniformGridPanel* ItemCellsGrid;
@@ -34,5 +37,7 @@ protected:
 	UPROPERTY(meta = (BindWidgetOptional))
 	UInventoryCellWidget* GoldCell;
 	UInventoryCellWidget * CreateCellWidget();
+
+	void OnItemDropped(UInventoryCellWidget * DraggedFrom, UInventoryCellWidget * DroppedTo);
 	
 };

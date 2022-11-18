@@ -41,4 +41,6 @@ protected:
 	TSubclassOf<UInventoryWidget> InventoryWidgetClass;
 	UPROPERTY(EditAnywhere)
 	int32 MinInventorySize = 20;
+
+	void OnItemDropped(UInventoryCellWidget * DraggedFrom, UInventoryCellWidget * DroppedTo);
 };
