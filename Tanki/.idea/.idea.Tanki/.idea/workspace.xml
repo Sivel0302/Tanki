@@ -7,7 +7,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_InventoryCell.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_InventoryCell.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tanki/InventoryManagerComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/InventoryManagerComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tanki/InventoryManagerComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/InventoryManagerComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tanki/InventoryWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/InventoryWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Tanki/InventoryWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/InventoryWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,9 +277,7 @@
       <workItem from="1668686660986" duration="7780000" />
       <workItem from="1668697053143" duration="4382000" />
       <workItem from="1668784038001" duration="698000" />
-      <workItem from="1668792832735" duration="3967000" />
-      <workItem from="1668809057381" duration="755000" />
-      <workItem from="1668868586064" duration="689000" />
+      <workItem from="1668792832735" duration="3501000" />
     </task>
     <servers />
   </component>
