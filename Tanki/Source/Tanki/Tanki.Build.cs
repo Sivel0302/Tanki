@@ -8,7 +8,7 @@ public class Tanki : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Niagara", "UMG", "SlateCore", "Slate", "MediaAssets", "DesktopPlatform" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Niagara", "UMG", "SlateCore", "Slate" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "Inventory" });
 
