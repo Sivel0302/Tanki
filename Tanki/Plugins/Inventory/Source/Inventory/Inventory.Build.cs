@@ -26,6 +26,10 @@ public class Inventory : ModuleRules
 			new string[]
 			{
 				"Core",
+				"UMG",
+				"SlateCore",
+				"Slate",
+				"InputCore"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

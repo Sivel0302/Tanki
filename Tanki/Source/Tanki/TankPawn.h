@@ -14,8 +14,8 @@
 #include <Templates/SubclassOf.h>
 #include <Particles/ParticleSystemComponent.h>
 
-#include "InventoryComponent.h"
-#include "InventoryManagerComponent.h"
+#include "Inventory/InventoryComponent.h"
+#include "Inventory/InventoryManagerComponent.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;

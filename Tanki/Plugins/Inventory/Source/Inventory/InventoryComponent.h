@@ -9,7 +9,7 @@
 
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class TANKI_API UInventoryComponent : public UActorComponent
+class INVENTORY_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
 

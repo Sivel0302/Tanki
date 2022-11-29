@@ -13,7 +13,7 @@ class UButton;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMainMenuDelegate, int32, SelectedButton);
 
 UCLASS(Abstract)
-class TANKI_API UMainMenuWidget : public UUserWidget
+class INVENTORY_API UMainMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	

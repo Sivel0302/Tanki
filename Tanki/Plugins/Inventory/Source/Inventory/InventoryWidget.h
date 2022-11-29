@@ -13,7 +13,7 @@
  * 
  */
 UCLASS()
-class TANKI_API UInventoryWidget : public UUserWidget
+class INVENTORY_API UInventoryWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

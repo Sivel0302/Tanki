@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class TANKI_API UEquipInventoryComponent : public UInventoryComponent
+class INVENTORY_API UEquipInventoryComponent : public UInventoryComponent
 {
 	GENERATED_BODY()
 	

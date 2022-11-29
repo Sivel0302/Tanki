@@ -15,7 +15,7 @@
 DECLARE_MULTICAST_DELEGATE_TwoParams(FOnItemDrop, UInventoryCellWidget* /*DraggedFrom*/, UInventoryCellWidget* /*DroppedTo*/);
 
 UCLASS()
-class TANKI_API UInventoryCellWidget : public UUserWidget
+class INVENTORY_API UInventoryCellWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

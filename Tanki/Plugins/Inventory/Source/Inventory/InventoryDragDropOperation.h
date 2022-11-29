@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class TANKI_API UInventoryDragDropOperation : public UDragDropOperation
+class INVENTORY_API UInventoryDragDropOperation : public UDragDropOperation
 {
 	GENERATED_BODY()
 

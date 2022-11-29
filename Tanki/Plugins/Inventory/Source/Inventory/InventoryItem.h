@@ -72,7 +72,7 @@ struct FInventorySlotInfo
 
 
 UCLASS()
-class TANKI_API UInventoryItem : public UObject
+class INVENTORY_API UInventoryItem : public UObject
 {
 	GENERATED_BODY()
 };
