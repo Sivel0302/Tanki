@@ -10,11 +10,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/Inventory_DataTable.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_CurrencyCell.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_CurrencyCell.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Core/BP_TankPawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/BP_TankPawn.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_Inventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_Inventory.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_InventoryCell.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Widgets/Inventory/W_InventoryCell.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/W_SomeWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Widgets/W_SomeWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/InventoryManagerComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/InventoryManagerComponent.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

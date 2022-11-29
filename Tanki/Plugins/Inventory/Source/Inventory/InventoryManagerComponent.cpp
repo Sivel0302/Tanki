@@ -19,7 +19,7 @@ UInventoryManagerComponent::UInventoryManagerComponent()
 void UInventoryManagerComponent::Init(UInventoryComponent* InInventoryComponent)
 {
 	LocalInventoryComponent = InInventoryComponent;
-    if (LocalInventoryComponent && InventoryItemsData)
+    if (LocalInventoryComponent && InventoryItemsData && InventoryWidgetClass)
     {
 	    ensure(InventoryWidgetClass);
 	    InventoryWidget = CreateWidget<UInventoryWidget>(GetWorld(), InventoryWidgetClass);
