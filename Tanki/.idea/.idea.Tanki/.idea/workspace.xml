@@ -8,10 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/Inventory.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/Inventory.Build.cs" afterDir="false" />
-    </list>
+    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -283,7 +280,7 @@
       <workItem from="1668784038001" duration="698000" />
       <workItem from="1668792832735" duration="3501000" />
       <workItem from="1669654521887" duration="3446000" />
-      <workItem from="1669731688273" duration="1617000" />
+      <workItem from="1669731688273" duration="2330000" />
     </task>
     <servers />
   </component>
