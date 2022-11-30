@@ -3,7 +3,9 @@
 
 #include "VideoPlane.h"
 
+#include "DesktopPlatformModule.h"
 #include "FileMediaSource.h"
+#include "IDesktopPlatform.h"
 #include "MediaSoundComponent.h"
 
 
@@ -21,7 +23,24 @@ void AVideoPlane::BeginPlay()
 
 	if (MediaPlayer)
 	{
-		FString Path = "C:\\Users\\nikol\\Documents\\Unreal Projects\\coral_reef_adventure_1080.wmv";
+		FString Path;
+		TArray<FString> OutFileNames;
+        IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
+        if (DesktopPlatform)
+        {
+	        FString FileTypes = "All Files(*.PNG;*.JPG;*.MP4;*.WMV)|*.PNG;*.JPG;*.MP4;*.WMV|"
+				"Image Files(*.PNG;*.JPG;)|*.PNG;*.JPG;|"
+				"Video Files(*.MP4;*.WMV)|*.MP4;*.WMV";
+	        uint32 SelectionFlag = 0;
+	        DesktopPlatform->OpenFileDialog(FSlateApplication::Get().FindBestParentWindowHandleForDialogs(nullptr), "Choose content", "", "", FileTypes, SelectionFlag, OutFileNames);
+	        if (OutFileNames.Num() > 0)
+	        {
+				Path = OutFileNames[0];
+	        }
+        }
+
+		
+		//FString Path = "C:\\Users\\nikol\\Documents\\Unreal Projects\\coral_reef_adventure_1080.wmv";
 		UFileMediaSource * MediaSource = NewObject<UFileMediaSource>();
 		MediaSource->FilePath = Path;
 		MediaPlayer->OpenSource(MediaSource);
