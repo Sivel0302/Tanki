@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MediaPlayer.h"
 #include "GameFramework/Actor.h"
 #include "VideoPlane.generated.h"
 
@@ -22,4 +23,7 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere)
+	UMediaPlayer * MediaPlayer;
 };

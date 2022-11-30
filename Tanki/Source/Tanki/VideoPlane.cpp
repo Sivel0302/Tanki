@@ -3,6 +3,9 @@
 
 #include "VideoPlane.h"
 
+#include "FileMediaSource.h"
+#include "MediaSoundComponent.h"
+
 
 // Sets default values
 AVideoPlane::AVideoPlane()
@@ -15,6 +18,18 @@ AVideoPlane::AVideoPlane()
 void AVideoPlane::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (MediaPlayer)
+	{
+		FString Path = "C:\\Users\\nikol\\Documents\\Unreal Projects\\coral_reef_adventure_1080.wmv";
+		UFileMediaSource * MediaSource = NewObject<UFileMediaSource>();
+		MediaSource->FilePath = Path;
+		MediaPlayer->OpenSource(MediaSource);
+
+		UMediaSoundComponent * Comp = NewObject<UMediaSoundComponent>(this);
+		Comp->SetMediaPlayer(MediaPlayer);
+		Comp->RegisterComponent();
+	}
 	
 }
 
