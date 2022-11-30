@@ -26,4 +26,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UMediaPlayer * MediaPlayer;
+
+	UFUNCTION(BlueprintCallable)
+	void StartVideoTranslation();
 };
