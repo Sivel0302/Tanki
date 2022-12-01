@@ -92,3 +92,8 @@ void AVideoPlane::StartVideoTranslation()
 	}
 }
 
+UMediaPlayer* AVideoPlane::GetMediaPlayer()
+{
+	return MediaPlayer;
+}
+

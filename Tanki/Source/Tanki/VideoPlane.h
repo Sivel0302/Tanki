@@ -29,4 +29,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void StartVideoTranslation();
+
+	UFUNCTION(BlueprintCallable)
+	UMediaPlayer* GetMediaPlayer();
 };
