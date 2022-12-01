@@ -24,6 +24,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UStaticMeshComponent* TVMesh;*/
+
 	UPROPERTY(EditAnywhere)
 	UMediaPlayer * MediaPlayer;
 

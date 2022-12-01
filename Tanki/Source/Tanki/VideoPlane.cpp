@@ -14,6 +14,9 @@ AVideoPlane::AVideoPlane()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	/*TVMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TVMesh"));
+	TVMesh->SetupAttachment(RootComponent);*/
 }
 
 // Called when the game starts or when spawned
@@ -89,6 +92,8 @@ void AVideoPlane::StartVideoTranslation()
 		UMediaSoundComponent * Comp = NewObject<UMediaSoundComponent>(this);
 		Comp->SetMediaPlayer(MediaPlayer);
 		Comp->RegisterComponent();
+
+		
 	}
 }
 
