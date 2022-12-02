@@ -8,12 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/Media/BP_VideoActor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Media/BP_VideoActor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/Widgets/W_SomeWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/Widgets/W_SomeWidget.uasset" afterDir="false" />
-    </list>
+    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -289,6 +284,7 @@
       <workItem from="1669819996252" duration="6919000" />
       <workItem from="1669916810652" duration="3147000" />
       <workItem from="1669924499227" duration="1467000" />
+      <workItem from="1670014217382" duration="346000" />
     </task>
     <servers />
   </component>
