@@ -8,17 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/BP_TankPawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/BP_TankPawn.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/InteractionComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/InteractionComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/InteractionComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/InteractionComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tanki/TankPawn.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/TankPawn.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tanki/TankPawn.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/TankPawn.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tanki/Tanki.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/Tanki.Build.cs" afterDir="false" />
-    </list>
+    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -295,7 +285,7 @@
       <workItem from="1669916810652" duration="3147000" />
       <workItem from="1669924499227" duration="1467000" />
       <workItem from="1670014217382" duration="926000" />
-      <workItem from="1670083949629" duration="5098000" />
+      <workItem from="1670083949629" duration="5487000" />
     </task>
     <servers />
   </component>
