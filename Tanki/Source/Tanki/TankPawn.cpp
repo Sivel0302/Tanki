@@ -35,6 +35,7 @@ ATankPawn::ATankPawn() : AParentPawn()
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
 	CannonSetupPoint->SetupAttachment(TurretMesh);*/
 
+
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnDie.AddUObject(this, &ATankPawn::Die);
 	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);
@@ -56,6 +57,8 @@ ATankPawn::ATankPawn() : AParentPawn()
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory");
 	InventoryManagerComponent =	CreateDefaultSubobject<UInventoryManagerComponent>("InventoryManager");
 
+	InteractionComponent = CreateDefaultSubobject<UInteractionComponent>("InteractionComponent");
+	InteractionComponent->SetupAttachment(BoxCollision);
 }
 
 // Called when the game starts or when spawned

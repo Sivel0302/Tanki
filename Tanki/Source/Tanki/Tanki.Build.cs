@@ -10,7 +10,7 @@ public class Tanki : ModuleRules
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Niagara", "UMG", "SlateCore", "Slate", "MediaAssets", "DesktopPlatform" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Inventory" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Inventory", "QuestSystem" });
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

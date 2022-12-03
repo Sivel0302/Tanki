@@ -16,6 +16,7 @@
 
 #include "Inventory/InventoryComponent.h"
 #include "Inventory/InventoryManagerComponent.h"
+#include "QuestSystem/InteractionComponent.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
@@ -57,6 +58,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UInteractionComponent* InteractionComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AIComponents")
 		float MovementAccurency = 400;
