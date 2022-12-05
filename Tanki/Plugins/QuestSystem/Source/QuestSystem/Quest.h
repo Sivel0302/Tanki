@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Objective.h"
 #include "GameFramework/Actor.h"
 #include "Quest.generated.h"
 
@@ -27,8 +28,8 @@ public:
 	FText Name;
 	UPROPERTY(EditAnywhere)
 	FText Descrition;
-	/*UPROPERTY(EditAnywhere)
-	TArray<class UObjective*> Objectives;*/
+	UPROPERTY(EditAnywhere)
+	TArray<UObjective*> Objectives;
 	UPROPERTY(EditAnywhere)
 	bool bIsStoryQuest = true;
 	UPROPERTY(EditAnywhere)
