@@ -3,6 +3,9 @@
 
 #include "Quest.h"
 
+#include "InteractionObjective.h"
+#include "LocationObjective.h"
+
 
 // Sets default values
 AQuest::AQuest()
@@ -50,6 +53,16 @@ void AQuest::TakeQuest(AActor* Character)
 		}
 	}
 	bIsTaken = true;
+}
+
+void AQuest::AddLocationObjective()
+{
+	Objectives.Add(NewObject<ULocationObjective>(this));
+}
+
+void AQuest::AddInteractObjective()
+{
+	Objectives.Add(NewObject<UInteractionObjective>(this));
 }
 
 void AQuest::OnObjectiveCompleted(UObjective* Objective)

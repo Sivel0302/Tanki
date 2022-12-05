@@ -49,6 +49,11 @@ public:
 	
 	//FOnQuestStatusUpdated OnQuestStatusUpdated;
 
+	UFUNCTION(BlueprintCallable, CallInEditor)
+	void AddLocationObjective();
+	UFUNCTION(BlueprintCallable, CallInEditor)
+	void AddInteractObjective();
+
 protected:
 	void OnObjectiveCompleted(UObjective* Objective);
 	
