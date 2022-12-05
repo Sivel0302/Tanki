@@ -7,6 +7,8 @@
 #include "GameFramework/Actor.h"
 #include "Quest.generated.h"
 
+
+//DECLARE_MULTICAST_DELEGATE_OneParam(FOnQuestStatusUpdated, UObjective* /*Objective*/);
 UCLASS()
 class QUESTSYSTEM_API AQuest : public AActor
 {
@@ -42,5 +44,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, CallInEditor)
 	void UpdateLocation();
+
+	void TakeQuest(AActor * Character);
+	
+	//FOnQuestStatusUpdated OnQuestStatusUpdated;
+
+protected:
+	void OnObjectiveCompleted(UObjective* Objective);
 	
 };
