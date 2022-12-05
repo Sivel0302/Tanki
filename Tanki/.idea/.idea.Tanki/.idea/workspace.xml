@@ -8,12 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/BP_TankPawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/BP_TankPawn.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Core/FirstLevel.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/Quest.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/Quest.h" afterDir="false" />
-    </list>
+    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -292,7 +287,7 @@
       <workItem from="1670014217382" duration="926000" />
       <workItem from="1670083949629" duration="6082000" />
       <workItem from="1670178905229" duration="945000" />
-      <workItem from="1670256032024" duration="1440000" />
+      <workItem from="1670256032024" duration="2012000" />
     </task>
     <servers />
   </component>
