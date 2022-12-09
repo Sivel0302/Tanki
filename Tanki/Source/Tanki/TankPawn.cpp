@@ -17,6 +17,8 @@
 #include <Particles/ParticleSystem.h>
 #include <Engine/TargetPoint.h>
 
+#include "Blueprint/WidgetBlueprintLibrary.h"
+
 // Sets default values
 ATankPawn::ATankPawn() : AParentPawn()
 {
@@ -56,9 +58,12 @@ ATankPawn::ATankPawn() : AParentPawn()
 	//инвентарь
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>("Inventory");
 	InventoryManagerComponent =	CreateDefaultSubobject<UInventoryManagerComponent>("InventoryManager");
-
+	
+	//квесты
 	InteractionComponent = CreateDefaultSubobject<UInteractionComponent>("InteractionComponent");
 	InteractionComponent->SetupAttachment(BoxCollision);
+	QuestListComponent = CreateDefaultSubobject<UQuestListComponent>("QuestListComponent");
+	
 }
 
 // Called when the game starts or when spawned
@@ -142,6 +147,35 @@ void ATankPawn::RotateTurretTo(FVector TargetPosition)
 FVector ATankPawn::GetEyesPosition()
 {
 	return CannonSetupPoint->GetComponentLocation();
+}
+
+void ATankPawn::ToggleQuestListVisibility()
+{
+	APlayerController * PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (QuestList )
+	{
+		QuestList->RemoveFromParent();
+		QuestList = nullptr;
+		if (PC)
+		{
+			UWidgetBlueprintLibrary::SetInputMode_GameOnly(PC);
+			PC->bShowMouseCursor = false;
+		}
+	}
+	else
+	{
+		if (QuestListClass)
+		{
+			QuestList = CreateWidget<UQuestList>(GetWorld(), QuestListClass);
+			QuestList->Init(QuestListComponent);
+			QuestList->AddToViewport();
+			if (PC)
+			{
+				UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(PC);
+				PC->bShowMouseCursor = true;
+			}
+		}
+	}
 }
 
 void ATankPawn::MoveForward(float Value)

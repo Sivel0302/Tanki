@@ -4,6 +4,8 @@
 #include "QuestSystemCharacter.h"
 
 #include "QuestListComponent.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -77,4 +79,33 @@ void AQuestSystemCharacter::Interact_Implementation(AActor* ActorInteractedWithO
     }
 
 }
+
+/*void AQuestSystemCharacter::ToggleQuestListVisibility()
+{
+	APlayerController * PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (QuestList )
+	{
+		QuestList->RemoveFromParent();
+		QuestList = nullptr;
+		if (PC)
+		{
+			UWidgetBlueprintLibrary::SetInputMode_GameOnly(PC);
+			PC->bShowMouseCursor = false;
+		}
+	}
+	else
+	{
+		if (QuestListClass)
+		{
+			QuestList = CreateWidget<UQuestList>(GetWorld(), QuestListClass);
+			QuestList->Init(QuestListComp);
+			QuestList->AddToViewport();
+			if (PC)
+			{
+				UWidgetBlueprintLibrary::SetInputMode_GameAndUI(PC);
+				PC->bShowMouseCursor = true;
+			}
+		}
+	}
+}*/
 

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "InteractableObject.h"
 #include "QuestDialog.h"
+#include "QuestList.h"
 #include "GameFramework/Character.h"
 #include "QuestSystemCharacter.generated.h"
 
@@ -34,5 +35,11 @@ protected:
 public:
 	void Interact_Implementation(AActor* ActorInteractedWithObject) override;
 
+	/*UFUNCTION(BlueprintCallable)
+	void ToggleQuestListVisibility();
+	UPROPERTY()
+	UQuestList * QuestList;
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UQuestList> QuestListClass;*/
 	
 };

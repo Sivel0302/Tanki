@@ -17,6 +17,7 @@
 #include "Inventory/InventoryComponent.h"
 #include "Inventory/InventoryManagerComponent.h"
 #include "QuestSystem/InteractionComponent.h"
+#include "QuestSystem/QuestList.h"
 #include "TankPawn.generated.h"
 
 class UstaticMeshComponent;
@@ -116,6 +117,16 @@ public:
 	UInventoryComponent * InventoryComponent;
 	UPROPERTY(EditDefaultsOnly)
 	UInventoryManagerComponent * InventoryManagerComponent;
+
+	//квесты
+	UPROPERTY(EditDefaultsOnly)
+	UQuestListComponent * QuestListComponent;
+	UFUNCTION(BlueprintCallable)
+	void ToggleQuestListVisibility();
+	UPROPERTY()
+	UQuestList * QuestList;
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UQuestList> QuestListClass;
 
 private:
 	class ATankController* TankController;
