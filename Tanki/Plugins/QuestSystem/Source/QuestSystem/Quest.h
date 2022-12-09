@@ -57,6 +57,8 @@ public:
 	void AddInteractObjective();
 
 	TArray<UObjective*> GetObjectives();
+	FText GetName() {return Name;}
+	FText GetDescription() {return Descrition;}
 
 protected:
 	void OnObjectiveCompleted(UObjective* Objective);
