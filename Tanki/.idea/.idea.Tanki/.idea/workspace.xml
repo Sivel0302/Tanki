@@ -8,13 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/QuestSystemCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/QuestSystemCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/QuestSystemCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/QuestSystem/Source/QuestSystem/QuestSystemCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tanki/TankPawn.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/TankPawn.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Tanki/TankPawn.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Tanki/TankPawn.h" afterDir="false" />
-    </list>
+    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -294,7 +288,7 @@
       <workItem from="1670083949629" duration="6082000" />
       <workItem from="1670178905229" duration="945000" />
       <workItem from="1670256032024" duration="5724000" />
-      <workItem from="1670556261742" duration="11505000" />
+      <workItem from="1670556261742" duration="11993000" />
     </task>
     <servers />
   </component>
