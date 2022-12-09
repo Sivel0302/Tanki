@@ -64,6 +64,7 @@ public:
 	bool IsAlreadyTaken() {return bIsTaken;}
 	AQuest* GetPrerquisedQuest() {return PrerquisedQuest;}
 	bool IsCompleted() {return bIsCompleted;}
+	bool IsStoryQuest() {return bIsStoryQuest;}
 
 protected:
 	void OnObjectiveCompleted(UObjective* Objective);
