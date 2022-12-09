@@ -3,11 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InteractableObject.h"
+#include "QuestDialog.h"
 #include "GameFramework/Character.h"
 #include "QuestSystemCharacter.generated.h"
 
 UCLASS()
-class QUESTSYSTEM_API AQuestSystemCharacter : public ACharacter
+class QUESTSYSTEM_API AQuestSystemCharacter : public ACharacter, public IInteractableObject
 {
 	GENERATED_BODY()
 
@@ -25,4 +27,12 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+protected:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UQuestDialog> QuestDialogClass;
+public:
+	void Interact_Implementation(AActor* ActorInteractedWithObject) override;
+
+	
 };

@@ -42,6 +42,8 @@ public:
 	AQuest* PrerquisedQuest;
 	UPROPERTY(VisibleAnywhere)
 	bool bIsTaken;
+	UPROPERTY(VisibleAnywhere)
+	bool bIsCompleted;
 
 
 	UFUNCTION(BlueprintCallable, CallInEditor)
@@ -59,6 +61,9 @@ public:
 	TArray<UObjective*> GetObjectives();
 	FText GetName() {return Name;}
 	FText GetDescription() {return Descrition;}
+	bool IsAlreadyTaken() {return bIsTaken;}
+	AQuest* GetPrerquisedQuest() {return PrerquisedQuest;}
+	bool IsCompleted() {return bIsCompleted;}
 
 protected:
 	void OnObjectiveCompleted(UObjective* Objective);
