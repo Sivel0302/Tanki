@@ -8,11 +8,13 @@
 #include "Quest.generated.h"
 
 
-//DECLARE_MULTICAST_DELEGATE_OneParam(FOnQuestStatusUpdated, UObjective* /*Objective*/);
+
 UCLASS()
 class QUESTSYSTEM_API AQuest : public AActor
 {
 	GENERATED_BODY()
+	
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnQuestStatusUpdated, AQuest*);
 
 public:
 	// Sets default values for this actor's properties
@@ -47,12 +49,14 @@ public:
 
 	void TakeQuest(AActor * Character);
 	
-	//FOnQuestStatusUpdated OnQuestStatusUpdated;
+	FOnQuestStatusUpdated OnQuestStatusUpdated;
 
 	UFUNCTION(BlueprintCallable, CallInEditor)
 	void AddLocationObjective();
 	UFUNCTION(BlueprintCallable, CallInEditor)
 	void AddInteractObjective();
+
+	TArray<UObjective*> GetObjectives();
 
 protected:
 	void OnObjectiveCompleted(UObjective* Objective);

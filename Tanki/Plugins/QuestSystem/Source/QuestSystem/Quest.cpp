@@ -65,6 +65,11 @@ void AQuest::AddInteractObjective()
 	Objectives.Add(NewObject<UInteractionObjective>(this));
 }
 
+TArray<UObjective*> AQuest::GetObjectives()
+{
+	return Objectives;
+}
+
 void AQuest::OnObjectiveCompleted(UObjective* Objective)
 {
 	if (bKeepObjectivesOrder)
@@ -75,10 +80,10 @@ void AQuest::OnObjectiveCompleted(UObjective* Objective)
 			Objectives[ObjectiveIndex + 1]->bCanBeCompleted = true;
 	    }
     }
-    /*if (OnQuestStatusUpdated.IsBound())
+    if (OnQuestStatusUpdated.IsBound())
     {
 		OnQuestStatusUpdated.Broadcast(this);
-    }*/
+    }
 
 }
 
