@@ -8,6 +8,7 @@
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
+#include "Engine/Selection.h"
 
 static const FName StandaloneWindowTestTabName("StandaloneWindowTest");
 
@@ -44,6 +45,13 @@ void FStandaloneWindowTestModule::StartupModule()
 	    &FStandaloneWindowTestModule::AddMenuExtension));
 	    LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuExtender);
     }
+	{
+		TSharedPtr<FExtender> ToolbarExtender = MakeShareable(new FExtender);
+		ToolbarExtender->AddToolBarExtension("Settings", EExtensionHook::After,
+		PluginCommands, FToolBarExtensionDelegate::CreateRaw(this,
+		&FStandaloneWindowTestModule::AddToolbarExtension));
+		LevelEditorModule.GetToolBarExtensibilityManager()->AddExtender(ToolbarExtender);
+	}
 
 }
 
@@ -65,22 +73,34 @@ void FStandaloneWindowTestModule::ShutdownModule()
 
 TSharedRef<SDockTab> FStandaloneWindowTestModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
-	FText WidgetText = FText::Format(
-		LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
-		FText::FromString(TEXT("FStandaloneWindowTestModule::OnSpawnPluginTab")),
-		FText::FromString(TEXT("StandaloneWindowTest.cpp"))
-		);
-
+	FText WidgetText = FText::FromString("Move selected actors");
 	return SNew(SDockTab)
 		.TabRole(ETabRole::NomadTab)
 		[
-			// Put your tab content here!
 			SNew(SBox)
 			.HAlign(HAlign_Center)
 			.VAlign(VAlign_Center)
 			[
-				SNew(STextBlock)
-				.Text(WidgetText)
+				SNew(SButton)
+				.OnClicked_Lambda([]()
+					{
+						if (GEditor)
+						{
+							for (FSelectionIterator Iter((GEditor->GetSelectedActorIterator())); Iter; ++Iter)
+							{
+								AActor* Actor = Cast<AActor>(*Iter);
+								if (Actor)
+								{
+									Actor->AddActorLocalOffset(FVector(50.f));
+								}
+							}
+						}
+						return FReply::Handled();
+					})
+				[
+					SNew(STextBlock)
+					.Text(WidgetText)
+				]
 			]
 		];
 }
