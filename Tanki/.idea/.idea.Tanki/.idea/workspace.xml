@@ -11,8 +11,6 @@
     <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/Source/StandaloneWindowTest/Private/StandaloneWindowTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/Source/StandaloneWindowTest/Private/StandaloneWindowTest.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/Source/StandaloneWindowTest/Public/StandaloneWindowTest.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/Source/StandaloneWindowTest/Public/StandaloneWindowTest.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/Source/StandaloneWindowTest/StandaloneWindowTest.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/Source/StandaloneWindowTest/StandaloneWindowTest.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +293,8 @@
       <workItem from="1670256032024" duration="5724000" />
       <workItem from="1670556261742" duration="12277000" />
       <workItem from="1670904545400" duration="692000" />
-      <workItem from="1670925569316" duration="5752000" />
+      <workItem from="1670925569316" duration="5881000" />
+      <workItem from="1670948514468" duration="553000" />
     </task>
     <servers />
   </component>

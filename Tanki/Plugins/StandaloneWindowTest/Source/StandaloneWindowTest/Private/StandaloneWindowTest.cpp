@@ -92,12 +92,12 @@ void FStandaloneWindowTestModule::PluginButtonClicked()
 
 void FStandaloneWindowTestModule::AddToolbarExtension(FToolBarBuilder& Builder)
 {
-	//Build.AddToolBarButton(FStandaloneWindowTestCommands::Get().OpenPluginWindow);
+	Builder.AddToolBarButton(FStandaloneWindowTestCommands::Get().OpenPluginWindow);
 }
 
 void FStandaloneWindowTestModule::AddMenuExtension(FMenuBuilder& Builder)
 {
-	//Build.AddMenuEntry(FStandaloneWindowTestCommands::Get().OpenPluginWindow);
+	Builder.AddMenuEntry(FStandaloneWindowTestCommands::Get().OpenPluginWindow);
 }
 
 void FStandaloneWindowTestModule::RegisterMenus()
