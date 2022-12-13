@@ -70,8 +70,21 @@ TArray<UObjective*> AQuest::GetObjectives()
 	return Objectives;
 }
 
+bool AQuest::IsCompleted()
+{
+	for (UObjective* Objective : Objectives)
+	{
+		if (!Objective->bIsCompleted)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 void AQuest::OnObjectiveCompleted(UObjective* Objective)
 {
+	bIsCompleted = IsCompleted();
 	if (bKeepObjectivesOrder)
     {
 	    int32 ObjectiveIndex;

@@ -63,7 +63,7 @@ public:
 	FText GetDescription() {return Descrition;}
 	bool IsAlreadyTaken() {return bIsTaken;}
 	AQuest* GetPrerquisedQuest() {return PrerquisedQuest;}
-	bool IsCompleted() {return bIsCompleted;}
+	bool IsCompleted();
 	bool IsStoryQuest() {return bIsStoryQuest;}
 
 protected:
