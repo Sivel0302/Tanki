@@ -34,6 +34,17 @@ void FStandaloneWindowTestModule::StartupModule()
 	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(StandaloneWindowTestTabName, FOnSpawnTab::CreateRaw(this, &FStandaloneWindowTestModule::OnSpawnPluginTab))
 		.SetDisplayName(LOCTEXT("FStandaloneWindowTestTabTitle", "StandaloneWindowTest"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
+
+	FLevelEditorModule& LevelEditorModule =
+    FModuleManager::LoadModuleChecked<FLevelEditorModule>("LevelEditor");
+    {
+	    TSharedPtr<FExtender> MenuExtender = MakeShareable(new FExtender());
+	    MenuExtender->AddMenuExtension("WindowLayout", EExtensionHook::After,
+	    PluginCommands, FMenuExtensionDelegate::CreateRaw(this,
+	    &FStandaloneWindowTestModule::AddMenuExtension));
+	    LevelEditorModule.GetMenuExtensibilityManager()->AddExtender(MenuExtender);
+    }
+
 }
 
 void FStandaloneWindowTestModule::ShutdownModule()
@@ -77,6 +88,16 @@ TSharedRef<SDockTab> FStandaloneWindowTestModule::OnSpawnPluginTab(const FSpawnT
 void FStandaloneWindowTestModule::PluginButtonClicked()
 {
 	FGlobalTabmanager::Get()->TryInvokeTab(StandaloneWindowTestTabName);
+}
+
+void FStandaloneWindowTestModule::AddToolbarExtension(FToolBarBuilder& Builder)
+{
+	//Build.AddToolBarButton(FStandaloneWindowTestCommands::Get().OpenPluginWindow);
+}
+
+void FStandaloneWindowTestModule::AddMenuExtension(FMenuBuilder& Builder)
+{
+	//Build.AddMenuEntry(FStandaloneWindowTestCommands::Get().OpenPluginWindow);
 }
 
 void FStandaloneWindowTestModule::RegisterMenus()

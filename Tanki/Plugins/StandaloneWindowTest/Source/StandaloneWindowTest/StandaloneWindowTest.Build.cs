@@ -37,6 +37,7 @@ public class StandaloneWindowTest : ModuleRules
 				"Projects",
 				"InputCore",
 				"UnrealEd",
+				"LevelEditor",
 				"ToolMenus",
 				"CoreUObject",
 				"Engine",
