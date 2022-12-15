@@ -30,4 +30,7 @@ private:
 
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
+
+	FReply OnMoveObjects();
+	FReply SelectQuestActors();
 };

@@ -9,6 +9,9 @@
 #include "Widgets/Text/STextBlock.h"
 #include "ToolMenus.h"
 #include "Engine/Selection.h"
+#include "QuestSystem/InteractableActor.h"
+#include "QuestSystem/Quest.h"
+#include "QuestSystem/QuestSystemCharacter.h"
 
 static const FName StandaloneWindowTestTabName("StandaloneWindowTest");
 
@@ -73,36 +76,78 @@ void FStandaloneWindowTestModule::ShutdownModule()
 
 TSharedRef<SDockTab> FStandaloneWindowTestModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
-	FText WidgetText = FText::FromString("Move selected actors");
+	FText WidgetText1 = FText::FromString("Move selected actors");
+	FText WidgetText2 = FText::FromString("Select QuestSystem actors");
 	return SNew(SDockTab)
 		.TabRole(ETabRole::NomadTab)
 		[
-			SNew(SBox)
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Center)
+			SNew(SVerticalBox)
+			+ SVerticalBox::Slot()
 			[
-				SNew(SButton)
-				.OnClicked_Lambda([]()
-					{
-						if (GEditor)
-						{
-							for (FSelectionIterator Iter((GEditor->GetSelectedActorIterator())); Iter; ++Iter)
-							{
-								AActor* Actor = Cast<AActor>(*Iter);
-								if (Actor)
-								{
-									Actor->AddActorLocalOffset(FVector(50.f));
-								}
-							}
-						}
-						return FReply::Handled();
-					})
+				SNew(SBox)
+				.HAlign(HAlign_Center)
+				.VAlign(VAlign_Center)
 				[
-					SNew(STextBlock)
-					.Text(WidgetText)
+					SNew(SButton)
+					.OnClicked_Raw(this, &FStandaloneWindowTestModule::OnMoveObjects)
+					[
+						SNew(STextBlock)
+						.Text(WidgetText1)
+					]
+				]
+			]
+			+ SVerticalBox::Slot()
+			[
+				SNew(SBox)
+				.HAlign(HAlign_Center)
+				.VAlign(VAlign_Center)
+				[
+					SNew(SButton)
+					.OnClicked_Raw(this, &FStandaloneWindowTestModule::SelectQuestActors)
+					[
+						SNew(STextBlock)
+						.Text(WidgetText2)
+					]
 				]
 			]
 		];
+}
+
+FReply FStandaloneWindowTestModule::OnMoveObjects()
+{
+	if (GEditor)
+	{
+		for (auto Iter = GEditor->GetSelectedActorIterator(); Iter; ++Iter)
+		{
+			AActor* Actor = Cast<AActor>(*Iter);
+			if (Actor)
+			{
+				Actor->AddActorLocalOffset(FVector(50, 50.f, 50));
+			}
+		}
+	}
+	
+	return FReply::Handled();
+}
+
+FReply FStandaloneWindowTestModule::SelectQuestActors()
+{	
+	if (GEditor)
+	{
+		for (auto Iter = GEditor->GetSelectedActorIterator(); Iter; ++Iter)
+		{
+			AActor* Actor = Cast<AActor>(*Iter);
+			AQuest* Quest = Cast<AQuest>(*Iter);
+			AQuestSystemCharacter* QuestSystemCharacter = Cast<AQuestSystemCharacter>(*Iter);
+			AInteractableActor* InteracableActor = Cast<AInteractableActor>(*Iter);
+			if (Actor && (Quest || QuestSystemCharacter || InteracableActor))
+			{
+				Actor->AddActorLocalOffset(FVector(50, 50.f, 50));
+			}
+		}
+	}
+
+	return FReply::Handled();
 }
 
 void FStandaloneWindowTestModule::PluginButtonClicked()

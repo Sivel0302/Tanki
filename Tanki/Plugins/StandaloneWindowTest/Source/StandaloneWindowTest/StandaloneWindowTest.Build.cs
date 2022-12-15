@@ -43,6 +43,7 @@ public class StandaloneWindowTest : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"QuestSystem",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
