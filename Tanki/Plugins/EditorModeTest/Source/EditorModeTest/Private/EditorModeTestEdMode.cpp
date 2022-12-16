@@ -4,6 +4,7 @@
 #include "EditorModeTestEdModeToolkit.h"
 #include "Toolkits/ToolkitManager.h"
 #include "EditorModeManager.h"
+#include "Engine/Selection.h"
 
 const FEditorModeID FEditorModeTestEdMode::EM_EditorModeTestEdModeId = TEXT("EM_EditorModeTestEdMode");
 
@@ -26,6 +27,8 @@ void FEditorModeTestEdMode::Enter()
 		Toolkit = MakeShareable(new FEditorModeTestEdModeToolkit);
 		Toolkit->Init(Owner->GetToolkitHost());
 	}
+
+	UpdateSelectedActors();
 }
 
 void FEditorModeTestEdMode::Exit()
@@ -43,6 +46,63 @@ void FEditorModeTestEdMode::Exit()
 bool FEditorModeTestEdMode::UsesToolkits() const
 {
 	return true;
+}
+
+void FEditorModeTestEdMode::Render(const FSceneView* View, FViewport* Viewport, FPrimitiveDrawInterface* PDI)
+{
+	for (AActor* BoundedActor : SelectedActors)
+	{
+		DrawWireBox(
+			PDI,
+			BoundedActor->GetComponentsBoundingBox(true),
+			FColor::Yellow,
+			1);
+	}
+	FEdMode::Render(View, Viewport, PDI);
+}
+
+void FEditorModeTestEdMode::DrawHUD(FEditorViewportClient* ViewportClient, FViewport* Viewport, const FSceneView* View,
+	FCanvas* Canvas)
+{
+	FEdMode::DrawHUD(ViewportClient, Viewport, View, Canvas);
+
+	for (AActor* SelectedActor : SelectedActors)
+	{
+		if (Canvas)
+		{
+			FBox Bounds = SelectedActor->GetComponentsBoundingBox(true);
+			FVector drawPos = Bounds.GetCenter() +
+				FVector(0.f, 0.f, Bounds.GetExtent().Z);
+			FVector2D PixelLocation;
+			View->ScreenToPixel(View->WorldToScreen(drawPos), PixelLocation);
+			PixelLocation /= ViewportClient->GetDPIScale();
+			UFont* RenderFont = GEngine->GetSmallFont();
+			Canvas->DrawShadowedText(PixelLocation.X, PixelLocation.Y,
+				FText::FromString(SelectedActor->GetName()),
+			RenderFont, FColor::Yellow);
+		}
+	}
+}
+
+void FEditorModeTestEdMode::ActorSelectionChangeNotify()
+{
+	FEdMode::ActorSelectionChangeNotify();
+
+	UpdateSelectedActors();
+}
+
+void FEditorModeTestEdMode::UpdateSelectedActors()
+{
+	SelectedActors.Empty();
+	USelection* ActorsSelection = GEditor->GetSelectedActors();
+	for (FSelectionIterator Iter(*ActorsSelection); Iter; ++Iter)
+	{
+		AActor* LevelActor = Cast<AActor>(*Iter);
+		if (LevelActor && !SelectedActors.Contains(LevelActor))
+		{
+			SelectedActors.Add(LevelActor);
+		}
+	}
 }
 
 
