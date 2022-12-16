@@ -8,10 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/StandaloneWindowTest.uplugin" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/StandaloneWindowTest/StandaloneWindowTest.uplugin" afterDir="false" />
-    </list>
+    <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -297,7 +294,7 @@
       <workItem from="1670948514468" duration="1468000" />
       <workItem from="1671016522026" duration="121000" />
       <workItem from="1671028471349" duration="5119000" />
-      <workItem from="1671103765036" duration="1668000" />
+      <workItem from="1671103765036" duration="2317000" />
     </task>
     <servers />
   </component>
