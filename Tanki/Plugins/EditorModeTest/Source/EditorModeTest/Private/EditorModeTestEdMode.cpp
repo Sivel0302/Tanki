@@ -5,6 +5,8 @@
 #include "Toolkits/ToolkitManager.h"
 #include "EditorModeManager.h"
 #include "Engine/Selection.h"
+#include "QuestSystem/InteractableActor.h"
+#include "QuestSystem/QuestSystemCharacter.h"
 
 const FEditorModeID FEditorModeTestEdMode::EM_EditorModeTestEdModeId = TEXT("EM_EditorModeTestEdMode");
 
@@ -50,7 +52,7 @@ bool FEditorModeTestEdMode::UsesToolkits() const
 
 void FEditorModeTestEdMode::Render(const FSceneView* View, FViewport* Viewport, FPrimitiveDrawInterface* PDI)
 {
-	for (AActor* BoundedActor : SelectedActors)
+	for (AActor* BoundedActor : NPCs)
 	{
 		DrawWireBox(
 			PDI,
@@ -66,7 +68,7 @@ void FEditorModeTestEdMode::DrawHUD(FEditorViewportClient* ViewportClient, FView
 {
 	FEdMode::DrawHUD(ViewportClient, Viewport, View, Canvas);
 
-	for (AActor* SelectedActor : SelectedActors)
+	for (AActor* SelectedActor : NPCs)
 	{
 		if (Canvas)
 		{
@@ -101,6 +103,21 @@ void FEditorModeTestEdMode::UpdateSelectedActors()
 		if (LevelActor && !SelectedActors.Contains(LevelActor))
 		{
 			SelectedActors.Add(LevelActor);
+		}
+	}
+	
+	FilterSelectedActors();
+}
+
+void FEditorModeTestEdMode::FilterSelectedActors()
+{
+	NPCs.Empty();
+	for (auto SelectedActor : SelectedActors)
+	{
+		AQuestSystemCharacter* QuestSystemCharacter = Cast<AQuestSystemCharacter>(SelectedActor);
+		if (QuestSystemCharacter)
+		{
+			NPCs.Add(SelectedActor);
 		}
 	}
 }
