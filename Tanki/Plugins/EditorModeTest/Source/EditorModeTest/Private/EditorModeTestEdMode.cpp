@@ -6,7 +6,6 @@
 #include "EditorModeManager.h"
 #include "Engine/Selection.h"
 #include "Kismet/GameplayStatics.h"
-#include "QuestSystem/InteractableActor.h"
 #include "QuestSystem/QuestSystemCharacter.h"
 
 const FEditorModeID FEditorModeTestEdMode::EM_EditorModeTestEdModeId = TEXT("EM_EditorModeTestEdMode");
@@ -53,7 +52,12 @@ bool FEditorModeTestEdMode::UsesToolkits() const
 
 void FEditorModeTestEdMode::Render(const FSceneView* View, FViewport* Viewport, FPrimitiveDrawInterface* PDI)
 {
-	for (AActor* BoundedActor : NPCs)
+	auto Array = NPCs;
+	if (NPCs.Num() == 0)
+	{
+		Array = SelectedActors;
+	}
+	for (AActor* BoundedActor : SelectedActors)
 	{
 		DrawWireBox(
 			PDI,
@@ -69,7 +73,12 @@ void FEditorModeTestEdMode::DrawHUD(FEditorViewportClient* ViewportClient, FView
 {
 	FEdMode::DrawHUD(ViewportClient, Viewport, View, Canvas);
 
-	for (AActor* SelectedActor : NPCs)
+	auto Array = NPCs;
+	if (NPCs.Num() == 0)
+	{
+		Array = SelectedActors;
+	}
+	for (AActor* SelectedActor : SelectedActors)
 	{
 		if (Canvas)
 		{
