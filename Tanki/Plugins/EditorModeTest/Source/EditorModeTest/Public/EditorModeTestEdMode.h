@@ -31,6 +31,6 @@ protected:
     TArray<AActor*> SelectedActors;
     void UpdateSelectedActors();
 	TArray<AActor*> NPCs;
-	void FilterSelectedActors();
+	bool FilterSelectedActors();
 
 };

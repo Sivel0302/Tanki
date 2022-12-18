@@ -5,6 +5,7 @@
 #include "Toolkits/ToolkitManager.h"
 #include "EditorModeManager.h"
 #include "Engine/Selection.h"
+#include "Kismet/GameplayStatics.h"
 #include "QuestSystem/InteractableActor.h"
 #include "QuestSystem/QuestSystemCharacter.h"
 
@@ -105,20 +106,32 @@ void FEditorModeTestEdMode::UpdateSelectedActors()
 			SelectedActors.Add(LevelActor);
 		}
 	}
-	
-	FilterSelectedActors();
+
+	NPCs.Empty();
+	if (!FilterSelectedActors())
+	{
+		UGameplayStatics::GetAllActorsOfClass(GEditor->GetWorld(), AQuestSystemCharacter::StaticClass(), NPCs);
+	}
 }
 
-void FEditorModeTestEdMode::FilterSelectedActors()
+bool FEditorModeTestEdMode::FilterSelectedActors()
 {
-	NPCs.Empty();
+	bool NPCExist = false;
 	for (auto SelectedActor : SelectedActors)
 	{
 		AQuestSystemCharacter* QuestSystemCharacter = Cast<AQuestSystemCharacter>(SelectedActor);
 		if (QuestSystemCharacter)
 		{
-			NPCs.Add(SelectedActor);
+			NPCExist = true;
 		}
+	}
+	if (NPCExist)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
