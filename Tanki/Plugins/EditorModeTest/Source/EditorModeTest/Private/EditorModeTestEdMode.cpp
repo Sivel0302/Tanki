@@ -6,6 +6,7 @@
 #include "EditorModeManager.h"
 #include "Engine/Selection.h"
 #include "Kismet/GameplayStatics.h"
+#include "QuestSystem/InteractableActor.h"
 #include "QuestSystem/QuestSystemCharacter.h"
 
 const FEditorModeID FEditorModeTestEdMode::EM_EditorModeTestEdModeId = TEXT("EM_EditorModeTestEdMode");
@@ -57,6 +58,10 @@ void FEditorModeTestEdMode::Render(const FSceneView* View, FViewport* Viewport, 
 	{
 		Array = SelectedActors;
 	}*/
+	if (NPCs.Num() == 0)
+	{
+		return;
+	}
 	for (AActor* BoundedActor : NPCs)
 	{
 		DrawWireBox(
@@ -78,6 +83,10 @@ void FEditorModeTestEdMode::DrawHUD(FEditorViewportClient* ViewportClient, FView
 	{
 		Array = SelectedActors;
 	}*/
+	if (NPCs.Num() == 0)
+	{
+		return;
+	}
 	for (AActor* SelectedActor : NPCs)
 	{
 		if (Canvas)
@@ -122,6 +131,35 @@ void FEditorModeTestEdMode::UpdateSelectedActors()
 		//UE_LOG(LogTemp, Warning, TEXT("Array1 lenght %i"), NPCs.Num());
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AQuestSystemCharacter::StaticClass(), NPCs);
 		//UE_LOG(LogTemp, Warning, TEXT("Array2 lenght %i"), NPCs.Num());
+	}
+	else if (SelectedActors.Num() != 0)
+	{
+		for (auto QuestCharacter : SelectedActors)
+		{
+			TArray<AActor*> AttachedActors;
+			QuestCharacter->GetAttachedActors(AttachedActors);
+			for (auto AttachedActor : AttachedActors)
+			{
+				AQuest* Quest = Cast<AQuest>(AttachedActor);
+				if (Quest)
+				{
+					auto Objectives = Quest->GetObjectives();
+					//UE_LOG(LogTemp, Warning, TEXT("Objectives num %i"), Objectives.Num());
+					if (Objectives.Num() != 0)
+					{
+						for (auto Objective : Objectives)
+						{
+							//AActor* ActorObjective = Cast<AActor>(Objective);
+							//if (ActorObjective)
+							//{
+								//NPCs.Add(Objective);
+							//}
+						}
+					}
+				}
+			}
+		}
+		//UGameplayStatics::GetAllActorsOfClass(GetWorld(), AInteractableActor::StaticClass(), NPCs);
 	}
 }
 
