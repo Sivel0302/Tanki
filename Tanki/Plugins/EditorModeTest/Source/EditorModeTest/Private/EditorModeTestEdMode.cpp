@@ -52,12 +52,12 @@ bool FEditorModeTestEdMode::UsesToolkits() const
 
 void FEditorModeTestEdMode::Render(const FSceneView* View, FViewport* Viewport, FPrimitiveDrawInterface* PDI)
 {
-	auto Array = NPCs;
+	/*auto Array = NPCs;
 	if (NPCs.Num() == 0)
 	{
 		Array = SelectedActors;
-	}
-	for (AActor* BoundedActor : SelectedActors)
+	}*/
+	for (AActor* BoundedActor : NPCs)
 	{
 		DrawWireBox(
 			PDI,
@@ -73,12 +73,12 @@ void FEditorModeTestEdMode::DrawHUD(FEditorViewportClient* ViewportClient, FView
 {
 	FEdMode::DrawHUD(ViewportClient, Viewport, View, Canvas);
 
-	auto Array = NPCs;
+	/*auto Array = NPCs;
 	if (NPCs.Num() == 0)
 	{
 		Array = SelectedActors;
-	}
-	for (AActor* SelectedActor : SelectedActors)
+	}*/
+	for (AActor* SelectedActor : NPCs)
 	{
 		if (Canvas)
 		{
@@ -117,9 +117,11 @@ void FEditorModeTestEdMode::UpdateSelectedActors()
 	}
 
 	NPCs.Empty();
-	if (!FilterSelectedActors())
+	if (!FilterSelectedActors() && SelectedActors.Num() != 0)
 	{
-		UGameplayStatics::GetAllActorsOfClass(GEditor->GetWorld(), AQuestSystemCharacter::StaticClass(), NPCs);
+		//UE_LOG(LogTemp, Warning, TEXT("Array1 lenght %i"), NPCs.Num());
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AQuestSystemCharacter::StaticClass(), NPCs);
+		//UE_LOG(LogTemp, Warning, TEXT("Array2 lenght %i"), NPCs.Num());
 	}
 }
 
