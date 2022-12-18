@@ -7,6 +7,7 @@
 #include "Engine/Selection.h"
 #include "Kismet/GameplayStatics.h"
 #include "QuestSystem/InteractableActor.h"
+#include "QuestSystem/InteractionObjective.h"
 #include "QuestSystem/QuestSystemCharacter.h"
 
 const FEditorModeID FEditorModeTestEdMode::EM_EditorModeTestEdModeId = TEXT("EM_EditorModeTestEdMode");
@@ -149,17 +150,21 @@ void FEditorModeTestEdMode::UpdateSelectedActors()
 					{
 						for (auto Objective : Objectives)
 						{
-							//AActor* ActorObjective = Cast<AActor>(Objective);
-							//if (ActorObjective)
-							//{
-								//NPCs.Add(Objective);
-							//}
+							UInteractionObjective* InteractionObjective = Cast<UInteractionObjective>(Objective);
+							if (InteractionObjective)
+							{
+								//UE_LOG(LogTemp, Warning, TEXT("Objectives yes"));
+								auto InteractableActor = InteractionObjective->Target;
+								if (InteractableActor)
+								{
+									NPCs.Add(InteractableActor);
+								}
+							}
 						}
 					}
 				}
 			}
 		}
-		//UGameplayStatics::GetAllActorsOfClass(GetWorld(), AInteractableActor::StaticClass(), NPCs);
 	}
 }
 
