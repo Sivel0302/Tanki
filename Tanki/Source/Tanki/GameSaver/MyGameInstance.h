@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SavingsManager.h"
 #include "Engine/GameInstance.h"
 #include "MyGameInstance.generated.h"
 
@@ -17,4 +18,6 @@ class TANKI_API UMyGameInstance : public UGameInstance
 public:
     void Init() override;
 
+	UPROPERTY(BlueprintReadOnly)
+	USavingsManager * SaveManager;
 };
