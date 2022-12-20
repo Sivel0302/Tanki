@@ -14,4 +14,7 @@ class TANKI_API UMyGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
+public:
+    void Init() override;
+
 };
