@@ -10,7 +10,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2e5a3f10-d103-4e5c-866f-17d81f1bb3b1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanki/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/EditorModeTest/Source/EditorModeTest/Private/EditorModeTestEdMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/EditorModeTest/Source/EditorModeTest/Private/EditorModeTestEdMode.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -300,7 +299,8 @@
       <workItem from="1671103765036" duration="2317000" />
       <workItem from="1671201058273" duration="2555000" />
       <workItem from="1671393454777" duration="2962000" />
-      <workItem from="1671401323642" duration="4822000" />
+      <workItem from="1671401323642" duration="4843000" />
+      <workItem from="1671535026318" duration="306000" />
     </task>
     <servers />
   </component>
