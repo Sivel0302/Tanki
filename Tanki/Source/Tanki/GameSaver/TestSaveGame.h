@@ -18,4 +18,10 @@ public:
     UPROPERTY(BlueprintReadWrite)
     float TestFloat;
 
+	//Игрок
+	UPROPERTY(BlueprintReadWrite)
+	float PlayerHealth;
+	UPROPERTY(BlueprintReadWrite)
+	int PlayerPatrons;
+
 };
