@@ -31,10 +31,11 @@ public:
 	UPROPERTY(BlueprintReadWrite, BlueprintAssignable)
 	FOnGameFromSlotAction OnGameSavedToSlot;
 	
-protected:
+public:
 	UPROPERTY(BlueprintReadWrite)
 	UTestSaveGame * CurrentGameObject;
 
+protected:
 	void OnGameLoadedFromSlotHandle(const FString& SlotName, const int32 UserIndex, USaveGame* SaveGame);
 	void OnGameSavedToSlotHandle(const FString& SlotName, const int32 UserIndex, bool bSuccess);
 };

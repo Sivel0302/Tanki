@@ -12,6 +12,7 @@
 #include "HealthComponent.h"
 #include "IScorable.h"
 #include <DrawDebugHelpers.h>
+#include "GameSaver/MyGameInstance.h"
 
 // Sets default values
 ATurret::ATurret() : AParentPawn()
@@ -189,5 +190,38 @@ bool ATurret::IsPlayerSeen()
 FVector ATurret::GetEyesPosition()
 {
 	return CannonSetupPoint->GetComponentLocation();
+}
+
+void ATurret::SaveGame()
+{
+	FSaveData save;
+	save.ID = GetActorGuid();
+	save.CurrentHP = HealthComponent->GetHealth();
+	save.CurrentPatrons = Patrons;
+
+	auto GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+	if (GameInstance)
+	{
+		GameInstance->SaveManager->CurrentGameObject->AddEnemySaves(save);
+	}
+}
+
+void ATurret::LoadGame()
+{
+	auto GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+	if (GameInstance)
+	{
+		auto EnemySaves = GameInstance->SaveManager->CurrentGameObject->GetEnemySaves();
+
+		for (auto saves : EnemySaves)
+		{
+			if (saves.ID == GetActorGuid())
+			{
+				HealthComponent->CurrentHealth = saves.CurrentHP;
+				Patrons = saves.CurrentPatrons;
+				return;
+			}
+		}
+	}
 }
 

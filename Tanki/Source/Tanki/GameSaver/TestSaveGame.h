@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "Tanki/GameStructs.h"
 #include "TestSaveGame.generated.h"
 
 /**
@@ -23,5 +24,11 @@ public:
 	float PlayerHealth;
 	UPROPERTY(BlueprintReadWrite)
 	int PlayerPatrons;
+
+	//враги
+	TArray<FSaveData> EnemySaves;
+	//UFUNCTION(BlueprintCallable)
+	void AddEnemySaves(FSaveData SaveData);
+	TArray<FSaveData> GetEnemySaves();
 
 };

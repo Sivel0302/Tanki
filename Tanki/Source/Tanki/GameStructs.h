@@ -18,12 +18,26 @@ USTRUCT()
 struct FDamageData
 {
 	GENERATED_BODY()
+	
 	UPROPERTY()
 		float DamageValue;
 	UPROPERTY()
 		AActor* Instigator;
 	UPROPERTY()
 		AActor* DamageMaker;
+};
+
+USTRUCT()
+struct FSaveData
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	FGuid ID;
+	UPROPERTY()
+	float CurrentHP;
+	UPROPERTY()
+	int CurrentPatrons;
 };
 
 
