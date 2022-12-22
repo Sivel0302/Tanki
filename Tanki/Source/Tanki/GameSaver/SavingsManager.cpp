@@ -8,6 +8,9 @@
 void USavingsManager::Init()
 {
 	CurrentGameObject = Cast<UTestSaveGame>(UGameplayStatics::CreateSaveGameObject(UTestSaveGame::StaticClass()));
+
+	FString ProjectDirectory = FPaths::ProjectDir();
+	UE_LOG(LogTemp, Warning, TEXT("FilePaths: ProjectDirectory: %s"), *ProjectDirectory);
 }
 
 bool USavingsManager::DoesSaveGameExist(const FString& SlotName)
