@@ -30,6 +30,10 @@ public:
 	FOnGameFromSlotAction OnGameLoadedFromSlot;
 	UPROPERTY(BlueprintReadWrite, BlueprintAssignable)
 	FOnGameFromSlotAction OnGameSavedToSlot;
+
+	UFUNCTION(BlueprintCallable)
+    const TArray<FString>& GetExistingSavedSlots() const;
+
 	
 public:
 	UPROPERTY(BlueprintReadWrite)
@@ -38,4 +42,8 @@ public:
 protected:
 	void OnGameLoadedFromSlotHandle(const FString& SlotName, const int32 UserIndex, USaveGame* SaveGame);
 	void OnGameSavedToSlotHandle(const FString& SlotName, const int32 UserIndex, bool bSuccess);
+
+	TArray<FString> ExistingSavedSlots;
+	const FString ExistingSavedSlotsFilePath = "existing_slots.txt";
+	void CacheExistingSavedSlotsInfo();
 };

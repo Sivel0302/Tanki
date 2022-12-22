@@ -9,6 +9,18 @@ void USavingsManager::Init()
 {
 	CurrentGameObject = Cast<UTestSaveGame>(UGameplayStatics::CreateSaveGameObject(UTestSaveGame::StaticClass()));
 
+	ExistingSavedSlots.Empty();
+	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+	FString FilePath = FPaths::Combine(FPaths::ProjectContentDir(), ExistingSavedSlotsFilePath);
+	if (PlatformFile.FileExists(*FilePath))
+	{
+		FString ExistingSavingsArray;
+		if (FFileHelper::LoadFileToString(ExistingSavingsArray, *FilePath))
+		{
+			ExistingSavingsArray.ParseIntoArray(ExistingSavedSlots, TEXT(","));
+		}
+	}
+
 	/*FString ProjectDirectory = FPaths::ProjectDir();
 	UE_LOG(LogTemp, Warning, TEXT("FilePaths: ProjectDirectory: %s"), *ProjectDirectory);
 
@@ -238,6 +250,11 @@ void USavingsManager::SaveCurrentGame(const FString& SlotName)
 
 }
 
+const TArray<FString>& USavingsManager::GetExistingSavedSlots() const
+{
+	return ExistingSavedSlots;
+}
+
 void USavingsManager::OnGameLoadedFromSlotHandle(const FString& SlotName, const int32 UserIndex, USaveGame* SaveGame)
 {
 	CurrentGameObject = Cast<UTestSaveGame>(SaveGame);
@@ -254,4 +271,21 @@ void USavingsManager::OnGameSavedToSlotHandle(const FString& SlotName, const int
 	{
 		OnGameSavedToSlot.Broadcast(SlotName);
 	}
+	if (!ExistingSavedSlots.Contains(SlotName))
+	{
+		ExistingSavedSlots.Add(SlotName);
+		CacheExistingSavedSlotsInfo();
+	}
+}
+
+void USavingsManager::CacheExistingSavedSlotsInfo()
+{
+	FString FilePath = FPaths::Combine(FPaths::ProjectContentDir(), ExistingSavedSlotsFilePath);
+    FString ExistingSavingsArray = "";
+    for (const FString& Slot : ExistingSavedSlots)
+    {
+		ExistingSavingsArray += Slot + ",";
+    }
+    FFileHelper::SaveStringToFile(ExistingSavingsArray, *FilePath, FFileHelper::EEncodingOptions::ForceUnicode, &IFileManager::Get(), FILEWRITE_EvenIfReadOnly);
+
 }
