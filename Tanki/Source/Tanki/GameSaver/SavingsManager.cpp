@@ -184,6 +184,35 @@ void USavingsManager::Init()
 	    delete FileHandle1;
     }*/
 
+	//запись строки в файл
+	/*FString MyDir = "C:/Users/nikol/Documents/Unreal Projects/Tanki/test/test2";
+    FString MyFile7 = FString("File.txt");
+    FString TextToSave = FString("Lorem ipsum");
+    bool AllowOverwriting = true;
+    IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+    if (PlatformFile.CreateDirectoryTree(*MyDir))
+    {
+	    FString AbsoluteFilePath = MyDir + "/" + MyFile7;
+	    if (AllowOverwriting || !PlatformFile.FileExists(*AbsoluteFilePath))
+	    {
+			FFileHelper::SaveStringToFile(TextToSave, *AbsoluteFilePath);
+	    }
+    }*/
+
+	//чтение строки из файла
+	/*FString MyFile8 = FString("C:/Users/nikol/Documents/Unreal Projects/Tanki/test/test2/File.txt");
+	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+	if (PlatformFile.FileExists(*MyFile8))
+	{
+		FString LoadedText;
+		if (FFileHelper::LoadFileToString(LoadedText, *MyFile8))
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, LoadedText);
+			//UE_LOG(LogTemp, Warning, TEXT("Read string is %s"), LoadedText); не выводит FString!!
+		}
+	}*/
+
+
 
 }
 
