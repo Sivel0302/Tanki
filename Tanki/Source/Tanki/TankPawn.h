@@ -118,6 +118,12 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	UInventoryManagerComponent * InventoryManagerComponent;
 
+	UFUNCTION(BlueprintCallable)
+	void SaveInventory();
+	UFUNCTION(BlueprintCallable)
+	void LoadInventory();
+	
+
 	//квесты
 	UPROPERTY(EditDefaultsOnly)
 	UQuestListComponent * QuestListComponent;

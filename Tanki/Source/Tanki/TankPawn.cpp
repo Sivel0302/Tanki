@@ -18,6 +18,7 @@
 #include <Engine/TargetPoint.h>
 
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "GameSaver/MyGameInstance.h"
 
 // Sets default values
 ATankPawn::ATankPawn() : AParentPawn()
@@ -147,6 +148,24 @@ void ATankPawn::RotateTurretTo(FVector TargetPosition)
 FVector ATankPawn::GetEyesPosition()
 {
 	return CannonSetupPoint->GetComponentLocation();
+}
+
+void ATankPawn::SaveInventory()
+{
+	auto GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+	if (GameInstance)
+	{
+		GameInstance->SaveManager->CurrentGameObject->Inventory = InventoryComponent->Items;
+	}
+}
+
+void ATankPawn::LoadInventory()
+{
+	auto GameInstance = Cast<UMyGameInstance>(GetGameInstance());
+	if (GameInstance)
+	{
+		 InventoryComponent->Items = GameInstance->SaveManager->CurrentGameObject->Inventory;
+	}
 }
 
 void ATankPawn::ToggleQuestListVisibility()

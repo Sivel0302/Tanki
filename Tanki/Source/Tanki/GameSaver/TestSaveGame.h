@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "Inventory/InventoryItem.h"
 #include "Tanki/GameStructs.h"
 #include "TestSaveGame.generated.h"
 
@@ -30,5 +31,9 @@ public:
 	//UFUNCTION(BlueprintCallable)
 	void AddEnemySaves(FSaveData SaveData);
 	TArray<FSaveData> GetEnemySaves();
+
+	//инвентарь
+	UPROPERTY(EditAnywhere)
+	TMap<int, FInventorySlotInfo> Inventory;
 
 };
