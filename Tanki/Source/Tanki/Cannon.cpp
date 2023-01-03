@@ -158,7 +158,7 @@ void ACannon::FireFire()
 							damageData.DamageValue = FireDamage;
 							damageData.Instigator = GetOwner();
 							damageData.DamageMaker = this;
-							DamageTakerActor->TakeDamage(damageData);
+							DamageTakerActor->MYTakeDamage(damageData);
 							if (ScoreActor && TankPawn)
 							{
 								if (OtherActor->IsActorBeingDestroyed())

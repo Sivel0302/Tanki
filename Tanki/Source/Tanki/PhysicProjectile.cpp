@@ -108,7 +108,7 @@ void APhysicProjectile::TakeDamagePawn(AActor* otherActor)
 		damageData.Instigator = GetOwner();
 		damageData.DamageMaker = this;
 
-		damageTakerActor->TakeDamage(damageData);
+		damageTakerActor->MYTakeDamage(damageData);
 	}
 	else
 	{

@@ -238,7 +238,7 @@ int ATankPawn::GetScore()
 	return AddScore;
 }
 
-void ATankPawn::TakeDamage(FDamageData DamageData)
+void ATankPawn::MYTakeDamage(FDamageData DamageData)
 {
 	HealthComponent->TakeDamage(DamageData);
 }

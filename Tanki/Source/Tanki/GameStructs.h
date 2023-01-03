@@ -33,7 +33,7 @@ struct FSaveData
 	GENERATED_BODY()
 
 	UPROPERTY()
-	FGuid ID;
+	uint32 ID;
 	UPROPERTY()
 	float CurrentHP;
 	UPROPERTY()

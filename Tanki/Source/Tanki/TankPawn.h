@@ -48,7 +48,7 @@ public:
 
 
 	UFUNCTION()
-		virtual void TakeDamage(FDamageData DamageData) override;
+		virtual void MYTakeDamage(FDamageData DamageData) override;
 	UFUNCTION()
 		void Die();
 	UFUNCTION()

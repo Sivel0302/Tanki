@@ -21,7 +21,7 @@ public:
 	ATurret();
 
 	UFUNCTION()
-		void TakeDamage(FDamageData DamageData) override;
+		void MYTakeDamage(FDamageData DamageData) override;
 
 	UFUNCTION()
 		virtual int GetScore() override;

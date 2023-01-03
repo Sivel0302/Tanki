@@ -29,7 +29,7 @@ public:
 	ATankFactory();
 
 	UFUNCTION()
-		virtual void TakeDamage(FDamageData DamageData) override;
+		virtual void MYTakeDamage(FDamageData DamageData) override;
 
 protected:
 	virtual void BeginPlay() override;

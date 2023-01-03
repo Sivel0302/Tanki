@@ -52,7 +52,7 @@ void ATankFactory::BeginPlay()
 
 }
 
-void ATankFactory::TakeDamage(FDamageData DamageData)
+void ATankFactory::MYTakeDamage(FDamageData DamageData)
 {
 	HealthComponent->TakeDamage(DamageData);
 }

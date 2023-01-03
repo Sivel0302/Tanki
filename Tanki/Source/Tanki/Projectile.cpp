@@ -83,7 +83,7 @@ void AProjectile::OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, 
 					damageData.DamageValue = Damage;
 					damageData.Instigator = GetOwner();
 					damageData.DamageMaker = this;
-					DamageTakerActor->TakeDamage(damageData);
+					DamageTakerActor->MYTakeDamage(damageData);
 					if (ScoreActor && TankPawn)
 					{
 						if (OtherActor->IsActorBeingDestroyed())

@@ -35,7 +35,7 @@ ATurret::ATurret() : AParentPawn()
 
 }
 
-void ATurret::TakeDamage(FDamageData DamageData)
+void ATurret::MYTakeDamage(FDamageData DamageData)
 {	
 	HealthComponent->TakeDamage(DamageData);
 }
@@ -195,7 +195,7 @@ FVector ATurret::GetEyesPosition()
 void ATurret::SaveGame()
 {
 	FSaveData save;
-	save.ID = GetActorGuid();
+	save.ID = GetUniqueID();
 	save.CurrentHP = HealthComponent->GetHealth();
 	save.CurrentPatrons = Patrons;
 
@@ -215,7 +215,7 @@ void ATurret::LoadGame()
 
 		for (auto saves : EnemySaves)
 		{
-			if (saves.ID == GetActorGuid())
+			if (saves.ID == GetUniqueID())
 			{
 				HealthComponent->CurrentHealth = saves.CurrentHP;
 				Patrons = saves.CurrentPatrons;
